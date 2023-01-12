@@ -14,6 +14,8 @@
 		/>
 
 		<link rel="stylesheet" href="scss/main.scss" />
+
+		<script src="js/app.js" type="module" defer></script>
 	</head>
 	<body>
 		<!-- Checkbox examples for javascript -->
@@ -25,8 +27,8 @@
 		<div class="container">
 			<div class="page-indicator">
 				<ul class="page-indicator__list">
-					<li class="page-indicator__item active"><p>1</p></li>
-					<li class="page-indicator__item"><p>2</p></li>
+					<li class="page-indicator__item"><p>1</p></li>
+					<li class="page-indicator__item active"><p>2</p></li>
 					<li class="page-indicator__item"><p>3</p></li>
 					<li class="page-indicator__item"><p>4</p></li>
 				</ul>
@@ -78,119 +80,163 @@
 				</div>
 
 				<!-- Step 2 -->
-				<div class="card">
-					<h2 class="card__title">Select your plan</h2>
-					<p class="card__desc">
-						You have the option of monthly or yearly billing
-					</p>
-					<div class="form-group">
-						<div>
-							<label for="arcade">Arcade</label>
-							<p class="form-group-label__desc">+$9/mo</p>
+				<div class="card-container">
+					<div class="card">
+						<h2 class="card__title">Select your plan</h2>
+						<p class="card__desc">
+							You have the option of monthly or yearly billing
+						</p>
+
+						<div class="form-group flex">
+							<input
+								type="radio"
+								name="plan"
+								id="arcade"
+								value="arcade"
+							/>
+							<div class="form-group__radio__img">
+								<img
+									src="assets/images/icon-arcade.svg"
+									alt=""
+								/>
+							</div>
+							<div class="form-group__radio__text">
+								<label class="primary-title" for="arcade"
+									>Arcade</label
+								>
+								<p class="form-group-label__desc">+$9/mo</p>
+								<p class="form-group-label__yearly">
+									2 months free
+								</p>
+							</div>
 						</div>
-						<input
-							type="radio"
-							name="plan"
-							id="arcade"
-							value="arcade"
-						/>
-					</div>
-					<div class="form-group">
-						<div>
-							<label for="advanced">Advanced</label>
-							<p class="form-group-label__desc">+$12/mo</p>
+						<div class="form-group flex">
+							<input
+								type="radio"
+								name="plan"
+								id="advanced"
+								value="advanced"
+							/>
+							<div class="form-group__radio__img">
+								<img
+									src="assets/images/icon-advanced.svg"
+									alt=""
+								/>
+							</div>
+							<div class="form-group__radio__text">
+								<label class="primary-title" for="advanced"
+									>Advanced</label
+								>
+								<p class="form-group-label__desc">+$12/mo</p>
+								<p class="form-group-label__yearly">
+									2 months free
+								</p>
+							</div>
+						</div>
+						<div class="form-group flex">
+							<input
+								type="radio"
+								name="plan"
+								id="pro"
+								value="pro"
+								checked
+							/>
+							<div class="form-group__radio__img">
+								<img src="assets/images/icon-pro.svg" alt="" />
+							</div>
+							<div class="form-group__radio__text">
+								<label class="primary-title" for="pro"
+									>Pro</label
+								>
+								<p class="form-group-label__desc">+$15/mo</p>
+								<p class="form-group-label__yearly">
+									2 months free
+								</p>
+							</div>
 						</div>
 
-						<input
-							type="radio"
-							name="plan"
-							id="advanced"
-							value="advanced"
-						/>
-					</div>
-					<div class="form-group">
 						<div>
-							<label for="pro">Pro</label>
-							<p class="form-group-label__desc">+$15/mo</p>
+							<p>Monthly</p>
+
+							<label class="switch">
+								<input type="checkbox" />
+								<span class="slider"></span>
+							</label>
+
+							<p>Yearly</p>
 						</div>
-
-						<input type="radio" name="plan" id="pro" value="pro" />
 					</div>
-
-					<div>
-						<p>Monthly</p>
-						<button>Button</button>
-						<p>Yearly</p>
-					</div>
-
 					<div class="lower-action">
-						<button type="button" class="btn">Go Back</button>
 						<button type="button" class="btn">Next Step</button>
 					</div>
 				</div>
 
 				<!-- Step 3 -->
-				<div class="card">
-					<h2 class="card__title">Pick add-ons</h2>
-					<p class="card__desc">
-						Add-ons help enhance your gaming experience.
-					</p>
-					<div class="form-group">
-						<div>
-							<label for="onlineService">Online Service</label>
-							<p class="form-group-label__desc">
-								Access to multiplayer games
-							</p>
+				<div class="card-container">
+					<div class="card">
+						<h2 class="card__title">Pick add-ons</h2>
+						<p class="card__desc">
+							Add-ons help enhance your gaming experience.
+						</p>
+						<div class="form-group">
+							<div>
+								<label for="onlineService"
+									>Online Service</label
+								>
+								<p class="form-group-label__desc">
+									Access to multiplayer games
+								</p>
+							</div>
+							<input
+								type="checkbox"
+								name="addons"
+								id="onlineService"
+								value="onlineService"
+							/>
+							<p>+$1/mo</p>
 						</div>
-						<input
-							type="checkbox"
-							name="addons"
-							id="onlineService"
-							value="onlineService"
-						/>
-						<p>+$1/mo</p>
-					</div>
-					<div class="form-group">
-						<div>
-							<label for="largerStorage">Larger storage</label>
-							<p class="form-group-label__desc">
-								Extra 1TB of cloud save
-							</p>
+						<div class="form-group">
+							<div>
+								<label for="largerStorage"
+									>Larger storage</label
+								>
+								<p class="form-group-label__desc">
+									Extra 1TB of cloud save
+								</p>
+							</div>
+							<input
+								type="checkbox"
+								name="addons"
+								id="largerStorage"
+								value="largerStorage"
+							/>
+							<p>+$2/mo</p>
 						</div>
-						<input
-							type="checkbox"
-							name="addons"
-							id="largerStorage"
-							value="largerStorage"
-						/>
-						<p>+$2/mo</p>
-					</div>
-					<div class="form-group">
-						<div>
-							<label for="customizableProfile"
-								>Customizable profile</label
-							>
-							<p class="form-group-label__desc">
-								Custom theme on your profile
-							</p>
+						<div class="form-group">
+							<div>
+								<label for="customizableProfile"
+									>Customizable profile</label
+								>
+								<p class="form-group-label__desc">
+									Custom theme on your profile
+								</p>
+							</div>
+							<input
+								type="checkbox"
+								name="addons"
+								id="customizableProfile"
+								value="customizableProfile"
+							/>
+							<p>+$2/mo</p>
 						</div>
-						<input
-							type="checkbox"
-							name="addons"
-							id="customizableProfile"
-							value="customizableProfile"
-						/>
-						<p>+$2/mo</p>
-					</div>
 
-					<div>
-						<p>Monthly</p>
-						<button>Button</button>
-						<p>Yearly</p>
+						<div>
+							<p>Monthly</p>
+							<button>Button</button>
+							<p>Yearly</p>
+						</div>
 					</div>
-
 					<div class="lower-action">
-						<button type="button" class="btn">Go Back</button>
 						<button type="button" class="btn">Next Step</button>
 					</div>
 				</div>

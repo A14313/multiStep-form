@@ -31,11 +31,14 @@ body {
 }
 
 .form-group input,
+.form-group-label__yearly,
 .primary-title {
 	color: var(--clr-primary-title);
+	// color: hsl(243, 100%, 62%);
 }
 
 .card__desc,
+.form-group-label__desc,
 .form-group input::placeholder {
 	color: var(--clr-primary-subtitle);
 }
