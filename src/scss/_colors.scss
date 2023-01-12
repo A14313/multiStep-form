@@ -1,0 +1,41 @@
+// - Purplish blue: hsl(243, 100%, 62%)
+// - Pastel blue: hsl(228, 100%, 84%)
+// - Strawberry red: hsl(354, 84%, 57%)
+
+// ### Neutral
+// - White: hsl(0, 0%, 100%)
+
+:root {
+	--clr-indicator-bg: hsl(206, 94%, 87%); //Light blue
+	--clr-primary-title: hsl(213, 96%, 18%); //Marine blue
+	--clr-primary-subtitle: hsl(231, 11%, 63%); //Cool gray
+
+	--clr-gray-light-400: hsl(229, 24%, 87%); //Light gray
+	--clr-gray-light-500: hsl(217, 100%, 97%); //Magnolia (lighter gray)
+	--clr-gray-light-600: hsl(
+		231,
+		100%,
+		99%
+	); //Alabaster (even much lighter gray)
+
+	--clr-input-border-focused: hsl(243, 100%, 62%);
+}
+
+body {
+	background-color: var(--clr-gray-light-500);
+}
+
+.btn {
+	background-color: var(--clr-primary-title);
+	color: var(--clr-gray-light-600);
+}
+
+.form-group input,
+.primary-title {
+	color: var(--clr-primary-title);
+}
+
+.card__desc,
+.form-group input::placeholder {
+	color: var(--clr-primary-subtitle);
+}

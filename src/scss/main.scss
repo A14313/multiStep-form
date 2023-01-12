@@ -1,0 +1,144 @@
+@import "breakpoints";
+@import "colors";
+@import "fonts";
+@import "resets";
+
+:root {
+	--default-inline-padding: 1.4rem;
+	--default-card-inline-padding: 1rem;
+}
+
+body {
+	font-family: var(--ff-primary);
+	font-size: var(--fs-400);
+}
+
+.container {
+	width: 90%;
+	max-width: 1200px;
+	margin-inline: auto;
+}
+
+.btn {
+	border: none;
+	outline: none;
+	padding: 0.65em 1.25em;
+	border-radius: 0.35em;
+	cursor: pointer;
+}
+
+.banner__container {
+	& img {
+		position: absolute;
+		z-index: -1;
+
+		width: 100%;
+		object-fit: cover;
+	}
+}
+
+.multi-step-form {
+	margin-block-start: 0em;
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+	margin-block-end: 1em;
+
+	& label {
+		font-weight: 400;
+	}
+
+	& input {
+		font-weight: 500;
+		padding: 0.75em 1em;
+		outline: none;
+		border: 1px solid var(--clr-gray-light-400);
+		border-radius: 0.5em;
+
+		&::placeholder {
+			font-weight: 500;
+		}
+
+		&:focus {
+			border: 1px solid var(--clr-input-border-focused);
+		}
+	}
+}
+
+.card-container {
+	display: flex;
+	flex-direction: column;
+	// height: 100vh;
+
+	& .lower-action {
+		margin-block-start: 5em;
+		// margin-top: auto;
+		background-color: white;
+		display: flex;
+		justify-content: flex-end;
+		padding: 1em 1em;
+	}
+}
+
+.card {
+	background-color: white;
+	padding-inline: var(--default-card-inline-padding);
+	border-radius: 0.75em;
+	padding: 2em;
+
+	&:not(:nth-of-type(1)) {
+		display: none;
+	}
+
+	&__title {
+		color: var(--clr-primary-title);
+		margin-block-end: 0.5em;
+	}
+
+	&__desc {
+		margin-block-end: 1em;
+		line-height: 1.6;
+	}
+}
+
+.page-indicator {
+	padding-block: 1.8em;
+
+	&__list {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 1em;
+
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	&__item {
+		border: 1px solid white;
+		border-radius: 50%;
+		width: 40px;
+		height: 40px;
+		aspect-ratio: 1 / 1;
+		color: white;
+
+		&.active {
+			background-color: var(--clr-indicator-bg);
+			color: var(--clr-primary-title) !important;
+		}
+
+		& p {
+			font-size: var(--fs-200);
+			font-weight: 500;
+			height: 100%;
+
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+}
