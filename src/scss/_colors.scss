@@ -24,8 +24,9 @@
 body {
 	background-color: var(--clr-gray-light-500);
 }
-
-.btn {
+.slider,
+.btn,
+.btn--next {
 	background-color: var(--clr-primary-title);
 	color: var(--clr-gray-light-600);
 }
@@ -39,6 +40,12 @@ body {
 
 .card__desc,
 .form-group-label__desc,
-.form-group input::placeholder {
+.form-group input::placeholder,
+.btn--previous {
 	color: var(--clr-primary-subtitle);
+}
+
+.form-group.flex.active,
+.plans {
+	background-color: var(--clr-gray-light-500);
 }

@@ -26,6 +26,10 @@ body {
 	padding: 0.65em 1.25em;
 	border-radius: 0.35em;
 	cursor: pointer;
+
+	&--previous {
+		background-color: transparent;
+	}
 }
 
 .banner__container {
@@ -78,7 +82,6 @@ body {
 
 		&.active {
 			border: 1px solid var(--clr-input-border-focused);
-			background-color: var(--clr-gray-light-500);
 		}
 
 		& > * {
@@ -131,7 +134,15 @@ body {
 		background-color: white;
 		display: flex;
 		justify-content: flex-end;
+
 		padding: 1em var(--default-inline-spacing);
+
+		&__two-column {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 100%;
+		}
 	}
 }
 
@@ -153,15 +164,27 @@ body {
 	}
 }
 
+.plans {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1em;
+	border-radius: 0.5em;
+
+	padding: 1em 0;
+
+	& p {
+		font-size: var(--fs-200);
+		font-weight: 500;
+	}
+}
+
 //label
 .switch {
-	--height-of-label: 25px;
-	--percentage: 0.63;
 	position: relative;
 	display: inline-block;
 	width: 50px;
-	height: var(--height-of-label);
-	border: 1px solid red;
+	height: 25px;
 
 	& input {
 		display: none;
@@ -171,31 +194,38 @@ body {
 		position: absolute;
 		cursor: pointer;
 		inset: 0;
-		background-color: #ccc;
 		border-radius: 34px;
 		transition: background-color var(--transition-speed-normal) ease;
 
 		&::before {
+			--size-of-circle: 16px;
+
 			position: absolute;
 			content: "";
-			height: calc(var(--height-of-label) * var(--percentage));
-			width: calc(var(--height-of-label) * var(--percentage));
-			left: 5px;
-			bottom: 5px;
+			height: var(--size-of-circle);
+			width: var(--size-of-circle);
+
+			//When setting the left and bottom
+			// Compute the square root of the
+			//--size-of-circle
+
+			left: 4px;
+			bottom: 4px;
+
 			background-color: white;
 			border-radius: 50%;
-			transform: translateX(100%);
+			transform: translateX(0);
 			transition: transform var(--transition-speed-normal) ease;
 		}
 	}
 
 	input:checked + .slider {
-		background-color: #ff278c;
+		// background-color: #ff278c;
 	}
 
 	input:checked + .slider:before {
-		transform: translateX(95%);
-		// transform: translateX(100%);
+		// transform: translateX(95%);
+		transform: translateX(25px);
 	}
 }
 
