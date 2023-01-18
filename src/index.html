@@ -15,7 +15,7 @@
 
 		<link rel="stylesheet" href="scss/main.scss" />
 
-		<script src="js/app.js" type="module" defer></script>
+		<script src="js/app.js" type="module"></script>
 	</head>
 	<body>
 		<!-- Checkbox examples for javascript -->
@@ -28,8 +28,8 @@
 			<div class="page-indicator">
 				<ul class="page-indicator__list">
 					<li class="page-indicator__item"><p>1</p></li>
-					<li class="page-indicator__item active"><p>2</p></li>
-					<li class="page-indicator__item"><p>3</p></li>
+					<li class="page-indicator__item"><p>2</p></li>
+					<li class="page-indicator__item active"><p>3</p></li>
 					<li class="page-indicator__item"><p>4</p></li>
 				</ul>
 			</div>
@@ -160,7 +160,13 @@
 						<div class="plans">
 							<p>Monthly</p>
 							<label class="switch">
-								<input type="checkbox" />
+								<input
+									id="yearly"
+									type="checkbox"
+									name="is-yearly"
+									value="yearly"
+									checked
+								/>
 								<span class="slider"></span>
 							</label>
 							<p>Yearly</p>
@@ -185,66 +191,84 @@
 						<p class="card__desc">
 							Add-ons help enhance your gaming experience.
 						</p>
-						<div class="form-group">
-							<div>
-								<label for="onlineService"
-									>Online Service</label
-								>
-								<p class="form-group-label__desc">
-									Access to multiplayer games
-								</p>
-							</div>
+						<div class="form-group flex">
 							<input
 								type="checkbox"
 								name="addons"
 								id="onlineService"
 								value="onlineService"
 							/>
-							<p>+$1/mo</p>
-						</div>
-						<div class="form-group">
-							<div>
-								<label for="largerStorage"
-									>Larger storage</label
+							<div class="form-group__checkbox__text">
+								<label class="primary-title" for="onlineService"
+									>Online Service</label
 								>
 								<p class="form-group-label__desc">
-									Extra 1TB of cloud save
+									Access to multiplayer games
 								</p>
 							</div>
+
+							<p
+								class="form-group-label__desc form-group-label__desc--withcolor"
+							>
+								+$1/mo
+							</p>
+						</div>
+						<div class="form-group flex">
 							<input
 								type="checkbox"
 								name="addons"
 								id="largerStorage"
 								value="largerStorage"
 							/>
-							<p>+$2/mo</p>
-						</div>
-						<div class="form-group">
-							<div>
-								<label for="customizableProfile"
-									>Customizable profile</label
+							<div class="form-group__checkbox__text">
+								<label class="primary-title" for="largerStorage"
+									>Larger storage</label
 								>
 								<p class="form-group-label__desc">
-									Custom theme on your profile
+									Extra 1TB of cloud save
 								</p>
 							</div>
+
+							<p
+								class="form-group-label__desc form-group-label__desc--withcolor"
+							>
+								+$2/mo
+							</p>
+						</div>
+						<div class="form-group flex">
 							<input
 								type="checkbox"
 								name="addons"
 								id="customizableProfile"
 								value="customizableProfile"
 							/>
-							<p>+$2/mo</p>
-						</div>
+							<div class="form-group__checkbox__text">
+								<label
+									class="primary-title"
+									for="customizableProfile"
+									>Customizable profile</label
+								>
+								<p class="form-group-label__desc">
+									Custom theme on your profile
+								</p>
+							</div>
 
-						<div>
-							<p>Monthly</p>
-							<button>Button</button>
-							<p>Yearly</p>
+							<p
+								class="form-group-label__desc form-group-label__desc--withcolor"
+							>
+								+$2/mo
+							</p>
 						</div>
 					</div>
 					<div class="lower-action">
-						<button type="button" class="btn">Next Step</button>
+						<div class="lower-action__two-column">
+							<button type="button" class="btn btn--previous">
+								Go back
+							</button>
+							<button type="button" class="btn btn--next">
+								Next Step
+							</button>
+						</div>
 					</div>
 				</div>
 			</form>

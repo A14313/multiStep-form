@@ -1,0 +1,2 @@
+document.querySelectorAll(".form-group.flex").forEach((e=>{e.addEventListener("click",(()=>{e.classList.add("active")}))}));let e=document.querySelectorAll(".form-group-label__yearly"),l=document.querySelector("#yearly");l.addEventListener("click",(()=>{l.toggleAttribute("checked")})),e.forEach((e=>{l.hasAttribute("checked")?e.style.display="block":e.style.display="none"}));
+//# sourceMappingURL=index.86409d96.js.map
