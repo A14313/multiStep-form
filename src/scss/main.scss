@@ -127,9 +127,21 @@ body {
 		font-weight: 400;
 		font-size: var(--fs-100);
 
+		&[data-show="true"] {
+			opacity: 1;
+			pointer-events: auto;
+			max-height: 100px;
+			transition: opacity var(--transition-speed-normal) 200ms linear,
+				max-height var(--transition-speed-normal) linear;
+		}
+
 		/*if label does not have attrubute data-show="true", hide it */
 		&:not([data-show="true"]) {
-			display: none;
+			opacity: 0;
+			pointer-events: none;
+			max-height: 0;
+			transition: opacity var(--transition-speed-normal) linear,
+				max-height var(--transition-speed-normal) linear;
 		}
 	}
 
@@ -138,12 +150,80 @@ body {
 	}
 }
 
+.checkbox-container {
+	--checkbox-size: 20px;
+
+	display: flex;
+	align-items: center;
+	gap: 1em;
+	width: 100%;
+	position: relative;
+
+	//This is the original checkbox
+	//We need to hide this hideous checkbox haha
+	input[type="checkbox"] {
+		cursor: pointer;
+		opacity: 0;
+		position: absolute;
+		left: 0;
+		margin: 0;
+		z-index: 9;
+		width: var(--checkbox-size);
+		height: var(--checkbox-size);
+	}
+
+	.custom-checkbox-container {
+		display: flex;
+		align-items: center;
+	}
+
+	//This is the custom checkbox.
+	.custom-checkbox {
+		cursor: pointer;
+		width: var(--checkbox-size);
+		height: var(--checkbox-size);
+		border: 1px solid var(--clr-gray-light-400);
+		border-radius: 0.2em;
+		overflow: hidden;
+
+		&-check {
+			cursor: pointer;
+			display: block;
+			max-width: 100%;
+			opacity: 0;
+			height: 100%;
+
+			transition: opacity var(--transition-speed-normal) ease,
+				background-color var(--transition-speed-normal) ease;
+		}
+	}
+
+	// Go to input "checkbox" if checked > select the direct sibling custom-checkbox > then select the direct child custom-checkbox-check
+	input[type="checkbox"]:checked + .custom-checkbox > .custom-checkbox-check {
+		opacity: 1;
+		background-color: var(--clr-input-border-focused);
+	}
+
+	label {
+		cursor: pointer;
+	}
+
+	//This is added to have a hover effect on labels inside this custom checkbox only
+	.form-group__checkbox__text {
+		transition: opacity var(--transition-speed-normal) ease;
+	}
+
+	.form-group__checkbox__text:hover {
+		opacity: 0.75;
+	}
+}
+
 .card-container {
 	display: flex;
 	flex-direction: column;
 
-	&:not(:nth-of-type(2)) {
-		display: none;
+	&:not(:nth-of-type(3)) {
+		// display: none;
 		// background-color: red;
 	}
 
