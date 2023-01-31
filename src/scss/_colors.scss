@@ -23,6 +23,10 @@
 
 body {
 	background-color: var(--clr-gray-light-500);
+
+	@include mediaQuery(med) {
+		background-color: white;
+	}
 }
 .slider,
 .btn,
@@ -49,7 +53,8 @@ body {
 .btn--previous,
 .form-group__summary--plan a,
 .form-group__summary--addons--title,
-.form-group__total--title {
+.form-group__total--title,
+.page-indicator__title {
 	color: var(--clr-primary-subtitle);
 }
 
@@ -62,4 +67,8 @@ body {
 .form-group-label__desc--withcolor,
 .form-group__total--price {
 	color: var(--clr-input-border-focused);
+}
+
+.page-indicator__desc {
+	color: white;
 }

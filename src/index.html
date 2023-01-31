@@ -21,18 +21,69 @@
 		<!-- Checkbox examples for javascript -->
 		<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#examples -->
 		<!-- ====================== -->
-		<div class="banner__container">
+		<!-- <div class="banner__container">
 			<img src="assets/images/bg-sidebar-mobile.svg" mobile alt="" />
 			<img src="assets/images/bg-sidebar-desktop.svg" desktop alt="" />
-		</div>
+		</div> -->
 		<div class="container">
 			<div class="grid">
+				<div class="banner__container">
+					<img
+						src="assets/images/bg-sidebar-mobile.svg"
+						mobile
+						alt=""
+					/>
+					<img
+						src="assets/images/bg-sidebar-desktop.svg"
+						desktop
+						alt=""
+					/>
+				</div>
 				<div class="page-indicator">
 					<ul class="page-indicator__list">
-						<li class="page-indicator__item active"><p>1</p></li>
-						<li class="page-indicator__item"><p>2</p></li>
-						<li class="page-indicator__item"><p>3</p></li>
-						<li class="page-indicator__item"><p>4</p></li>
+						<!-- 1 -->
+						<div class="page-indicator__group">
+							<li class="page-indicator__item active">
+								<p>1</p>
+							</li>
+							<div class="page-indicator__text">
+								<p class="page-indicator__title">Step 1</p>
+								<p class="page-indicator__desc">Your info</p>
+							</div>
+						</div>
+
+						<!-- 2 -->
+						<div class="page-indicator__group">
+							<li class="page-indicator__item">
+								<p>2</p>
+							</li>
+							<div class="page-indicator__text">
+								<p class="page-indicator__title">Step 2</p>
+								<p class="page-indicator__desc">Select plan</p>
+							</div>
+						</div>
+
+						<!-- 3 -->
+						<div class="page-indicator__group">
+							<li class="page-indicator__item">
+								<p>3</p>
+							</li>
+							<div class="page-indicator__text">
+								<p class="page-indicator__title">Step 3</p>
+								<p class="page-indicator__desc">Add-ons</p>
+							</div>
+						</div>
+
+						<!-- 4 -->
+						<div class="page-indicator__group">
+							<li class="page-indicator__item">
+								<p>4</p>
+							</li>
+							<div class="page-indicator__text">
+								<p class="page-indicator__title">Step 4</p>
+								<p class="page-indicator__desc">Summary</p>
+							</div>
+						</div>
 					</ul>
 				</div>
 				<form class="multi-step-form" action="#">
