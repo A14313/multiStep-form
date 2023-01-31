@@ -23,10 +23,6 @@
 
 body {
 	background-color: var(--clr-gray-light-500);
-
-	@include mediaQuery(med) {
-		background-color: white;
-	}
 }
 .slider,
 .btn,

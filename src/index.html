@@ -26,7 +26,7 @@
 			<img src="assets/images/bg-sidebar-desktop.svg" desktop alt="" />
 		</div> -->
 		<div class="container">
-			<div class="grid">
+			<div class="main-grid">
 				<div class="banner__container">
 					<img
 						src="assets/images/bg-sidebar-mobile.svg"
@@ -43,7 +43,7 @@
 					<ul class="page-indicator__list">
 						<!-- 1 -->
 						<div class="page-indicator__group">
-							<li class="page-indicator__item active">
+							<li class="page-indicator__item">
 								<p>1</p>
 							</li>
 							<div class="page-indicator__text">
@@ -54,7 +54,7 @@
 
 						<!-- 2 -->
 						<div class="page-indicator__group">
-							<li class="page-indicator__item">
+							<li class="page-indicator__item active">
 								<p>2</p>
 							</li>
 							<div class="page-indicator__text">
@@ -104,6 +104,7 @@
 									name="name"
 									id="name"
 									placeholder="e.g. Stephen King"
+									required
 								/>
 							</div>
 							<div class="form-group">
@@ -115,6 +116,7 @@
 									name="email"
 									id="email"
 									placeholder="e.g. stephenking@lorem.com"
+									required
 								/>
 							</div>
 							<div class="form-group">
@@ -126,6 +128,7 @@
 									name="number"
 									id="number"
 									placeholder="e.g. +1 234 567 890"
+									required
 								/>
 							</div>
 						</div>
@@ -143,85 +146,93 @@
 							<p class="card__desc">
 								You have the option of monthly or yearly billing
 							</p>
-							<!-- Option 1 -->
-							<div class="form-group flex">
-								<input
-									class="optionInput"
-									type="radio"
-									name="plan"
-									id="arcade"
-									value="arcade"
-								/>
-								<div class="form-group__radio__img">
-									<img
-										src="assets/images/icon-arcade.svg"
-										alt=""
+							<div class="card__plans-radio">
+								<!-- Option 1 -->
+								<div class="form-group flex">
+									<input
+										class="optionInput"
+										type="radio"
+										name="plan"
+										id="arcade"
+										value="arcade"
 									/>
+									<div class="form-group__radio__img">
+										<img
+											src="assets/images/icon-arcade.svg"
+											alt=""
+										/>
+									</div>
+									<div class="form-group__radio__text">
+										<label
+											class="primary-title"
+											for="arcade"
+											>Arcade</label
+										>
+										<p class="form-group-label__desc">
+											+$9/mo
+										</p>
+										<p class="form-group-label__yearly">
+											2 months free
+										</p>
+									</div>
 								</div>
-								<div class="form-group__radio__text">
-									<label class="primary-title" for="arcade"
-										>Arcade</label
-									>
-									<p class="form-group-label__desc">+$9/mo</p>
-									<p class="form-group-label__yearly">
-										2 months free
-									</p>
-								</div>
-							</div>
 
-							<!-- Option 2 -->
-							<div class="form-group flex">
-								<input
-									class="optionInput"
-									type="radio"
-									name="plan"
-									id="advanced"
-									value="advanced"
-								/>
-								<div class="form-group__radio__img">
-									<img
-										src="assets/images/icon-advanced.svg"
-										alt=""
+								<!-- Option 2 -->
+								<div class="form-group flex">
+									<input
+										class="optionInput"
+										type="radio"
+										name="plan"
+										id="advanced"
+										value="advanced"
 									/>
+									<div class="form-group__radio__img">
+										<img
+											src="assets/images/icon-advanced.svg"
+											alt=""
+										/>
+									</div>
+									<div class="form-group__radio__text">
+										<label
+											class="primary-title"
+											for="advanced"
+											>Advanced</label
+										>
+										<p class="form-group-label__desc">
+											+$12/mo
+										</p>
+										<p class="form-group-label__yearly">
+											2 months free
+										</p>
+									</div>
 								</div>
-								<div class="form-group__radio__text">
-									<label class="primary-title" for="advanced"
-										>Advanced</label
-									>
-									<p class="form-group-label__desc">
-										+$12/mo
-									</p>
-									<p class="form-group-label__yearly">
-										2 months free
-									</p>
-								</div>
-							</div>
 
-							<!-- Option 3 -->
-							<div class="form-group flex">
-								<input
-									class="optionInput"
-									type="radio"
-									name="plan"
-									id="pro"
-									value="pro"
-								/>
-								<div class="form-group__radio__img">
-									<img
-										src="assets/images/icon-pro.svg"
-										alt=""
+								<!-- Option 3 -->
+								<div class="form-group flex">
+									<input
+										class="optionInput"
+										type="radio"
+										name="plan"
+										id="pro"
+										value="pro"
 									/>
-								</div>
-								<div class="form-group__radio__text">
-									<label class="primary-title" for="pro"
-										>Pro</label
-									>
-									<p class="form-group-label__desc">
-										+$15/mo
-									</p>
-									<p class="form-group-label__yearly">
-										2 months free
-									</p>
+									<div class="form-group__radio__img">
+										<img
+											src="assets/images/icon-pro.svg"
+											alt=""
+										/>
+									</div>
+									<div class="form-group__radio__text">
+										<label class="primary-title" for="pro"
+											>Pro</label
+										>
+										<p class="form-group-label__desc">
+											+$15/mo
+										</p>
+										<p class="form-group-label__yearly">
+											2 months free
+										</p>
+									</div>
 								</div>
 							</div>
 

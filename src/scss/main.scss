@@ -27,17 +27,19 @@ body {
 	}
 }
 
-.grid {
-	border-radius: var(--border-radius-card);
-	overflow: hidden;
+.main-grid {
 	@include mediaQuery(med) {
+		padding: 0.5em;
+		background-color: white;
+		border-radius: var(--border-radius-card);
+		overflow: hidden;
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 	}
 
 	@include mediaQuery(lrg) {
 		width: 90%;
-		max-width: 1200px;
+		max-width: 1000px;
 		margin-inline: auto;
 	}
 }
@@ -48,14 +50,20 @@ body {
 	padding: 0.65em 1.25em;
 	border-radius: 0.35em;
 	cursor: pointer;
+	transition: opacity var(--transition-speed-normal) ease;
 
 	&--previous {
 		background-color: transparent;
+	}
+
+	&:hover {
+		opacity: 0.9;
 	}
 }
 
 .banner__container {
 	position: relative;
+
 	img[mobile] {
 		position: absolute;
 		z-index: -1;
@@ -71,7 +79,7 @@ body {
 	@include mediaQuery(med) {
 		grid-column: 1 / 2;
 		grid-row: 1 / 2;
-		z-index: -1;
+		z-index: 1;
 
 		img[mobile] {
 			display: none;
@@ -83,7 +91,7 @@ body {
 			max-width: 100%;
 			object-fit: cover;
 			// // position: absolute;
-			z-index: -1;
+			// z-index: -1;
 			border-radius: var(--border-radius-card);
 		}
 	}
@@ -130,6 +138,21 @@ body {
 		border: 1px solid var(--clr-gray-light-400);
 		border-radius: var(--border-radius-form);
 		padding: 1em;
+		transition: min-width var(--transition-speed-normal) 300ms ease;
+
+		@include mediaQuery(med) {
+			flex-direction: column;
+			gap: 2.3em;
+			min-width: 130px;
+		}
+
+		@include mediaQuery(lrg) {
+			min-width: 140px;
+		}
+
+		@include mediaQuery(xlrg) {
+			min-width: 160px;
+		}
 
 		&.active {
 			border: 1px solid var(--clr-input-border-focused);
@@ -193,7 +216,9 @@ body {
 	}
 
 	& input[type="radio"] {
-		// display: none;
+		@include mediaQuery(med) {
+			display: none;
+		}
 	}
 
 	&__summary {
@@ -316,7 +341,7 @@ body {
 	display: flex;
 	flex-direction: column;
 
-	&:not(:nth-of-type(1)) {
+	&:not(:nth-of-type(2)) {
 		display: none;
 		// background-color: red;
 	}
@@ -364,6 +389,30 @@ body {
 		text-align: center;
 
 		padding: 2em 0;
+
+		@include mediaQuery(med) {
+			// border: 1px solid red;
+			// min-height: 100%;
+			// position: absolute;
+		}
+	}
+
+	&__plans-radio {
+		@include mediaQuery(med) {
+			display: flex;
+			justify-content: space-between;
+			gap: 0em;
+
+			min-height: 160px;
+		}
+
+		@include mediaQuery(lrg) {
+			// justify-content: space-evenly;
+		}
+
+		@include mediaQuery(xlrg) {
+			justify-content: space-between;
+		}
 	}
 }
 
@@ -436,8 +485,7 @@ body {
 	padding-block: 1.8em;
 
 	@include mediaQuery(med) {
-		// display: none;
-		// position: absolute;
+		z-index: 2;
 		grid-column: 1 / 2;
 		grid-row: 1 / 2;
 		padding-inline: 1.2em;
