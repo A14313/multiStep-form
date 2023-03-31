@@ -1,10 +1,10 @@
 {
 	"name": "multistep-form",
-	"version": "1.0.0",
+	"version": "1.2.0",
 	"description": "",
 	"scripts": {
-		"start": "parcel src/*.html --open",
-		"build": "parcel build src/*.html --public-url ./"
+		"start": "rm -rf dist/* && parcel src/*.html --open",
+		"build": "rm -rf dist/* && parcel build src/*.html --public-url ./"
 	},
 	"repository": {
 		"type": "git",

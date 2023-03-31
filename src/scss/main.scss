@@ -1,7 +1,7 @@
-@import "breakpoints";
-@import "colors";
-@import "fonts";
-@import "resets";
+@import 'breakpoints';
+@import 'colors';
+@import 'fonts';
+@import 'resets';
 
 :root {
 	--default-inline-spacing: 1.2rem;
@@ -138,7 +138,13 @@ body {
 		border: 1px solid var(--clr-gray-light-400);
 		border-radius: var(--border-radius-form);
 		padding: 1em;
-		transition: min-width var(--transition-speed-normal) 300ms ease;
+		transition: min-width var(--transition-speed-normal) 300ms ease,
+			border var(--transition-speed-normal) ease,
+			background-color var(--transition-speed-normal) ease;
+
+		&:hover {
+			border: 1px solid var(--clr-input-border-focused);
+		}
 
 		@include mediaQuery(med) {
 			flex-direction: column;
@@ -157,10 +163,6 @@ body {
 		&.active {
 			border: 1px solid var(--clr-input-border-focused);
 		}
-
-		& > * {
-			// border: 1px solid red;
-		}
 	}
 
 	&__radio__img {
@@ -175,6 +177,7 @@ body {
 
 		& label {
 			font-weight: 500;
+			cursor: pointer;
 		}
 	}
 
@@ -197,7 +200,7 @@ body {
 		font-weight: 400;
 		font-size: var(--fs-100);
 
-		&[data-show="true"] {
+		&[data-show='true'] {
 			opacity: 1;
 			pointer-events: auto;
 			max-height: 100px;
@@ -206,18 +209,12 @@ body {
 		}
 
 		/*if label does not have attrubute data-show="true", hide it */
-		&:not([data-show="true"]) {
+		&:not([data-show='true']) {
 			opacity: 0;
 			pointer-events: none;
 			max-height: 0;
 			transition: opacity var(--transition-speed-normal) linear,
 				max-height var(--transition-speed-normal) linear;
-		}
-	}
-
-	& input[type="radio"] {
-		@include mediaQuery(med) {
-			display: none;
 		}
 	}
 
@@ -280,7 +277,7 @@ body {
 
 	//This is the original checkbox
 	//We need to hide this hideous checkbox haha
-	input[type="checkbox"] {
+	input[type='checkbox'] {
 		cursor: pointer;
 		opacity: 0;
 		position: absolute;
@@ -318,7 +315,7 @@ body {
 	}
 
 	// Go to input "checkbox" if checked > select the direct sibling custom-checkbox > then select the direct child custom-checkbox-check
-	input[type="checkbox"]:checked + .custom-checkbox > .custom-checkbox-check {
+	input[type='checkbox']:checked + .custom-checkbox > .custom-checkbox-check {
 		opacity: 1;
 		background-color: var(--clr-input-border-focused);
 	}
@@ -338,12 +335,22 @@ body {
 }
 
 .card-container {
-	display: flex;
-	flex-direction: column;
+	// display: flex;
+	// flex-direction: column;
+	display: none;
 
-	&:not(:nth-of-type(2)) {
+	// &:not(:nth-of-type(1)) {
+	// 	display: none;
+	// 	// background-color: red;
+	// }
+
+	&.active {
+		display: flex;
+		flex-direction: column;
+	}
+
+	&.hidden {
 		display: none;
-		// background-color: red;
 	}
 
 	& .lower-action {
@@ -414,6 +421,10 @@ body {
 			justify-content: space-between;
 		}
 	}
+
+	.optionInput {
+		display: none;
+	}
 }
 
 .plans {
@@ -453,7 +464,7 @@ body {
 			--size-of-circle: 16px;
 
 			position: absolute;
-			content: "";
+			content: '';
 			height: var(--size-of-circle);
 			width: var(--size-of-circle);
 
@@ -483,6 +494,7 @@ body {
 
 .page-indicator {
 	padding-block: 1.8em;
+	// border: 1px solid red;
 
 	@include mediaQuery(med) {
 		z-index: 2;
@@ -493,6 +505,8 @@ body {
 	}
 
 	&__group {
+		// border: 1px solid rgb(65, 65, 65);
+
 		@include mediaQuery(med) {
 			display: flex;
 			gap: 1.2em;
@@ -530,6 +544,7 @@ body {
 		list-style: none;
 		margin: 0;
 		padding: 0;
+		// border: 1px solid red;
 
 		@include mediaQuery(med) {
 			flex-direction: column;
