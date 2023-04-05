@@ -138,12 +138,14 @@ body {
 		border: 1px solid var(--clr-gray-light-400);
 		border-radius: var(--border-radius-form);
 		padding: 1em;
-		transition: min-width var(--transition-speed-normal) 300ms ease,
-			border var(--transition-speed-normal) ease,
-			background-color var(--transition-speed-normal) ease;
+		transition: min-width var(--transition-speed-normal) 300ms ease, border var(--transition-speed-normal) ease, background-color var(--transition-speed-normal) ease;
 
-		&:hover {
-			border: 1px solid var(--clr-input-border-focused);
+		// For those devices with mouse
+		// Pag hinover mo tapos may mouse ka, gagana yung border
+		@media (hover: hover) {
+			&:hover {
+				border: 1px solid var(--clr-input-border-focused);
+			}
 		}
 
 		@include mediaQuery(med) {
@@ -204,8 +206,7 @@ body {
 			opacity: 1;
 			pointer-events: auto;
 			max-height: 100px;
-			transition: opacity var(--transition-speed-normal) 200ms linear,
-				max-height var(--transition-speed-normal) linear;
+			transition: opacity var(--transition-speed-normal) 200ms linear, max-height var(--transition-speed-normal) linear;
 		}
 
 		/*if label does not have attrubute data-show="true", hide it */
@@ -213,8 +214,7 @@ body {
 			opacity: 0;
 			pointer-events: none;
 			max-height: 0;
-			transition: opacity var(--transition-speed-normal) linear,
-				max-height var(--transition-speed-normal) linear;
+			transition: opacity var(--transition-speed-normal) linear, max-height var(--transition-speed-normal) linear;
 		}
 	}
 
@@ -309,8 +309,7 @@ body {
 			opacity: 0;
 			height: 100%;
 
-			transition: opacity var(--transition-speed-normal) ease,
-				background-color var(--transition-speed-normal) ease;
+			transition: opacity var(--transition-speed-normal) ease, background-color var(--transition-speed-normal) ease;
 		}
 	}
 
@@ -335,14 +334,7 @@ body {
 }
 
 .card-container {
-	// display: flex;
-	// flex-direction: column;
 	display: none;
-
-	// &:not(:nth-of-type(1)) {
-	// 	display: none;
-	// 	// background-color: red;
-	// }
 
 	&.active {
 		display: flex;
@@ -423,7 +415,7 @@ body {
 	}
 
 	.optionInput {
-		display: none;
+		// display: none;
 	}
 }
 

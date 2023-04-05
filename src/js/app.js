@@ -2,34 +2,41 @@
 //Variables
 const form = document.querySelector('[multiStepForm]');
 const formSteps = [...form.querySelectorAll('[data-step]')];
-const pageIndicatorItems = [
-	...document.querySelectorAll('.page-indicator .page-indicator__item'),
-];
-
+const pageIndicatorItems = [...document.querySelectorAll('.page-indicator .page-indicator__item')]; //<<-- <li> to ng Page indicator
 const yearlySwitch = document.querySelector('#yearly');
 const yearlyLabels = document.querySelectorAll('.form-group-label__yearly');
-
-let finalPlan = document.querySelector('#final-plan');
-let finalBasePlan = document.querySelector('#final-base-plan');
-let basePlanFrequency = document.querySelectorAll('.base-plan--frequency');
-let finalFrequencyTitle = document.querySelector('#final-frequency-title');
-
-// Ito yung div ng mga card plans, dito nakalagay yung mga maliliit na card plans
-const radioPlanContainer = document.querySelector('[data-plan-container]');
-// radioPlanContainer.style.border = '1px solid red';
+let finalBasePlanStep4 = document.querySelector('#finalBasePlanStep4');
+let finalBasePlanFrequencyTitleStep4 = document.querySelector('#finalBasePlanFrequencyTitleStep4');
+let finalBasePlanPriceStep4 = document.querySelector('#finalBasePlanPriceStep4');
+let planFrequencies = document.querySelectorAll('.plan-frequency');
+const planCardsContainerStep2 = document.querySelector('[data-plan-cards-container-step2]'); //<-- Ito yung div ng mga card plans sa step 2, dito nakalagay yung mga maliliit na card plans
+// planCardsContainerStep2.style.border = '1px solid red';
 
 // Ito yung mga radioButtons sa bawat isang card plan
-const radioButtons = [...document.querySelectorAll('[data-plan-input]')];
+const radioButtonsHiddenStep2 = [...document.querySelectorAll('[data-plan-card-input-step2]')];
 
-// Ito yung container ng maliliit na card. ito yung form group
-const planOptionsDiv = [...document.querySelectorAll('[data-plan-options]')];
+// Ito yung mismong container ng maliliit na plan card. ito yung form group
+const planCardDivsStep2 = [...document.querySelectorAll('[data-individual-plan-card-div-step2]')];
 
+// Ito yung parang UL natin. Ito yung pinag lalagayan ng addons sa step4
+const finalAddonsDivStep4 = document.querySelector('#finalAddonsDivStep4');
+
+// Ito yung price ng mga plan, naka array
+let prices = [...document.querySelectorAll('.plan-price')];
+const checkboxesStep3 = [...document.querySelectorAll('[data-addon-card-input-step3]')];
 const submitButton = document.querySelector('#submitButton');
 
-// Ito yung price ng base plan, naka array
-let prices = [...document.querySelectorAll('.baseplan-price')];
 // **********************************************************
 
+// Para kahit mapindot ang enter hindi mag susubmit ang form
+// Sa loob lang ito ng form
+form.addEventListener('keydown', (e) => {
+	if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+		e.preventDefault();
+		console.log('Enter is prevented');
+	}
+});
+// **********************************************************
 // For switching the steps
 // Note 1
 let currentIndicator = pageIndicatorItems.findIndex((el) => {
@@ -43,6 +50,7 @@ let currentStep = formSteps.findIndex((el) => {
 
 // Ito yung pang default lang kung wlang naka set sa markup na active step
 // lalagay nya sa 0 yung current step at lalagyan nya ng active class
+// Ganun din sa indicator
 if (currentStep < 0 && currentIndicator < 0) {
 	currentStep = 0;
 	currentIndicator = 0;
@@ -62,8 +70,15 @@ form.addEventListener('click', (e) => {
 	}
 	// Pag hindi yung button ang pinindot mo, mag eexit lang sya
 
-	const inputs = [...formSteps[currentStep].querySelectorAll('input')];
-	const isAllValid = inputs.every((input) => {
+	// Kunin mo lahat ng input sa forms step na current step halimbawa
+	// formstep[0] tapos kunin mo lahat ng inputs tapos every input
+	// check mo at ireport mo ang validity pag, true na, procede sa incrementor
+	const currentFormStepInputs = [...formSteps[currentStep].querySelectorAll('input')];
+	const isAllValid = currentFormStepInputs.every((input) => {
+		// Basically lahat ng inputs sa current form step, kunin mo at every
+		// input check mo kung valid na ba, if hindi, report ang error
+		// ang report validity nagrereturn ng true or false, dahil naka 'every' tayo
+		// meaning dapat lahat ng input ay valid, else false ang irereturn nya
 		return input.reportValidity();
 	});
 
@@ -110,88 +125,115 @@ let monthlyPrices = prices.map((el) => {
 
 yearlySwitch.addEventListener('change', (e) => {
 	if (e.target.checked === true) {
-		finalFrequencyTitle.textContent = 'Yearly';
-		basePlanFrequency.forEach((el) => {
+		finalBasePlanFrequencyTitleStep4.textContent = 'Yearly';
+		planFrequencies.forEach((el) => {
 			el.textContent = 'yr';
 		});
 
+		// Update mo yung kada isa ng prices into yearly prices
 		prices.forEach((el, index) => {
 			el.textContent = yearlyPrices[index];
 		});
 
-		let activeInputIndex = radioButtons.findIndex((el) => {
+		let activeRadioIndexStep2 = radioButtonsHiddenStep2.findIndex((el) => {
 			return el.checked;
+			// Index rereturn neto 0 - 2 or kung ilan man ang dulo
 		});
 
-		let selectedPlan = parseInt(prices[activeInputIndex].textContent);
-		finalBasePlan.textContent = selectedPlan;
+		let selectedPlan = parseInt(prices[activeRadioIndexStep2].textContent);
+		finalBasePlanPriceStep4.textContent = selectedPlan;
 	} else {
-		finalFrequencyTitle.textContent = 'Monthly';
-		basePlanFrequency.forEach((el) => {
+		finalBasePlanFrequencyTitleStep4.textContent = 'Monthly';
+		planFrequencies.forEach((el) => {
 			el.textContent = 'mo';
 		});
 		prices.forEach((el, index) => {
 			el.textContent = monthlyPrices[index];
 		});
 
-		let activeInputIndex = radioButtons.findIndex((el) => {
+		let activeRadioIndexStep2 = radioButtonsHiddenStep2.findIndex((el) => {
 			return el.checked;
 		});
 
-		let selectedPlan = parseInt(prices[activeInputIndex].textContent);
-		finalBasePlan.textContent = selectedPlan;
+		let selectedPlan = parseInt(prices[activeRadioIndexStep2].textContent);
+		finalBasePlanPriceStep4.textContent = selectedPlan;
 	}
 });
 
 // **********************************************************
-
-// For adding border in the selected plan and
-// For updating the number of prices
-// let activePlan = planOptionsDiv.findIndex((el) => {
-// 	return el.classList.contains('active');
-// 	// Hahanapin nya yung card na may active class
-// 	// Pero dahil wala akong sinet sa markup na active doon by default
-// 	// -1 ang result neto
-// });
-
-// // So pag -1 ang result gawin mong zero 0. Tapos lagyan mo active para
-// // May border
-// if (activePlan < 0) {
-// 	activePlan = 0;
-// 	planOptionsDiv[activePlan].classList.add('active');
-// }
-
-// console.log(planOptionsDiv);
-
-radioPlanContainer.addEventListener('click', (e) => {
+// Ito yung sa step 2 para kada click or tap ng user sa plan nag a update ang frequency at plans
+planCardsContainerStep2.addEventListener('click', (e) => {
 	// Add ng event listener sa Div ng mga card plans, at pag na click mo yung
-	// may attribute na data-plan-input gawin mo yung nasa loob
-	if (e.target.matches('[data-plan-input]')) {
-		let activeInputIndex = radioButtons.findIndex((el) => {
+	// may attribute na data-plan-card-input-step2 gawin mo yung nasa loob
+	if (e.target.matches('[data-plan-card-input-step2]')) {
+		let activeRadioIndexStep2 = radioButtonsHiddenStep2.findIndex((el) => {
 			return el.checked;
 			// I return mo yung index ng radiobutton na naka check
 		});
 
-		let activeInput = radioButtons.find((el) => {
+		let activeRadioStep2 = radioButtonsHiddenStep2.find((el) => {
 			return el.checked;
 			// I return mo yung element mismo na radiobutton na naka check
 		});
 
-		planOptionsDiv.forEach((el, index) => {
-			el.classList.toggle('active', index === activeInputIndex);
+		planCardDivsStep2.forEach((el, index) => {
+			el.classList.toggle('active', index === activeRadioIndexStep2);
 		});
 
-		let selectedPlan = parseInt(prices[activeInputIndex].textContent);
+		let selectedPlan = parseInt(prices[activeRadioIndexStep2].textContent);
 
-		finalBasePlan.textContent = selectedPlan;
-		finalPlan.textContent = activeInput.labels[0].textContent;
+		finalBasePlanPriceStep4.textContent = selectedPlan;
+		// Para to sa final step. yung final plan
+		finalBasePlanStep4.textContent = activeRadioStep2.labels[0].textContent;
 	}
 });
 
-form.addEventListener('keydown', (e) => {
-	if (e.code === 'Enter' || e.code === 'NumpadEnter') {
-		e.preventDefault();
-	}
+// **********************************************************
+// Step 3
+// Blank array muna dito natin lalagay yung mga plans at prices
+let listArray = [];
+
+const addToDOM = (arr) => {
+	finalAddonsDivStep4.innerHTML = '';
+
+	arr.forEach((item) => {
+		// Gawa ng bagong DIV
+		const priceHtml = `+$<span class="plan-price">${item.price}</span>/<span class="plan-frequency">mo</span>`;
+		const newDiv = document.createElement('DIV');
+		newDiv.classList.add('form-group__summary--addons');
+
+		// Gawa ng bagong P para sa addon title
+		const newParagraphTitle = document.createElement('p');
+		newParagraphTitle.classList.add('form-group__summary--addons--title');
+		newParagraphTitle.innerText = item.plan;
+
+		const newParagraphPrice = document.createElement('p');
+		newParagraphPrice.classList.add('form-group__summary--addons--price');
+		// newParagraphPrice.innerText = item.price;
+		newParagraphPrice.innerHTML = priceHtml;
+
+		newDiv.append(newParagraphTitle);
+		newDiv.append(newParagraphPrice);
+		finalAddonsDivStep4.append(newDiv);
+	});
+};
+
+checkboxesStep3.forEach((el) => {
+	el.addEventListener('click', (e) => {
+		if (e.target.checked) {
+			listArray.push({
+				plan: e.target.labels[0].innerText,
+				price: parseInt(e.target.labels[1].innerText),
+			});
+
+			addToDOM(listArray);
+		} else {
+			listArray = listArray.filter((el) => {
+				return el.plan !== e.target.labels[0].innerText;
+			});
+			addToDOM(listArray);
+		}
+	});
 });
 
 // **********************************************************
