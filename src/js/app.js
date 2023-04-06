@@ -24,10 +24,10 @@ const finalAddonsDivStep4 = document.querySelector('#finalAddonsDivStep4');
 // Ito yung price ng mga plan, naka array
 let prices = [...document.querySelectorAll('.plan-price')];
 const checkboxesStep3 = [...document.querySelectorAll('[data-addon-card-input-step3]')];
+const addonsCardDivsStep3 = [...document.querySelectorAll('[data-individual-addon-card-div-step3]')];
 const submitButton = document.querySelector('#submitButton');
 
 // **********************************************************
-
 // Para kahit mapindot ang enter hindi mag susubmit ang form
 // Sa loob lang ito ng form
 form.addEventListener('keydown', (e) => {
@@ -36,6 +36,15 @@ form.addEventListener('keydown', (e) => {
 		console.log('Enter is prevented');
 	}
 });
+
+let plansObj = [
+	{
+		plan: undefined,
+		frequency: undefined,
+		price: undefined,
+		addons: [],
+	},
+];
 // **********************************************************
 // For switching the steps
 // Note 1
@@ -58,7 +67,7 @@ if (currentStep < 0 && currentIndicator < 0) {
 	formSteps[currentStep].classList.add('active');
 }
 
-form.addEventListener('click', (e) => {
+const nextFn = (e) => {
 	// Note 3
 	let incrementor;
 	if (e.target.matches('[data-next]')) {
@@ -96,7 +105,9 @@ form.addEventListener('click', (e) => {
 
 		//Note 4
 	}
-});
+};
+
+form.addEventListener('click', nextFn);
 
 // **********************************************************
 
@@ -135,6 +146,11 @@ yearlySwitch.addEventListener('change', (e) => {
 			el.textContent = yearlyPrices[index];
 		});
 
+		let activeRadioStep2 = radioButtonsHiddenStep2.find((el) => {
+			return el.checked;
+			// Index rereturn neto yung mismong element
+		});
+
 		let activeRadioIndexStep2 = radioButtonsHiddenStep2.findIndex((el) => {
 			return el.checked;
 			// Index rereturn neto 0 - 2 or kung ilan man ang dulo
@@ -142,6 +158,32 @@ yearlySwitch.addEventListener('change', (e) => {
 
 		let selectedPlan = parseInt(prices[activeRadioIndexStep2].textContent);
 		finalBasePlanPriceStep4.textContent = selectedPlan;
+
+		// Updating plansObj
+		plansObj[0].plan = activeRadioStep2.labels[0].textContent;
+		plansObj[0].frequency = activeRadioStep2.labels[2].textContent;
+		plansObj[0].price = selectedPlan;
+
+		// Ito yung pag may laman na yung addons tapos na click ulit yung yearly switch
+		// Dahil naka true ang yearly, meaning dapat times 10 ang addons
+		// Pero gagawin mo lang yun pag may laman na yung addons array,
+		// Mangyayari lang yun pag yung user ganito ginawa, step2 > step3> tapos bumalik ng step 2 ulit tapos pinalitan yung yearlyswitch
+		if (plansObj[0].addons.length !== 0) {
+			// May laman
+			let newPrices = plansObj[0].addons.map((el) => {
+				// Yearly ito
+				// Gawa ng bagong array na naka times 10
+				return el.price * 10;
+			});
+
+			plansObj[0].addons.forEach((el, index) => {
+				// Dun sa addons array kunin mo ang each element at index nun
+				// set mo yung price sa newPrices pero yung index ng addons element ang gamitin mo para tugma
+				el.price = newPrices[index];
+			});
+		}
+
+		console.log(plansObj);
 	} else {
 		finalBasePlanFrequencyTitleStep4.textContent = 'Monthly';
 		planFrequencies.forEach((el) => {
@@ -151,12 +193,48 @@ yearlySwitch.addEventListener('change', (e) => {
 			el.textContent = monthlyPrices[index];
 		});
 
+		let activeRadioStep2 = radioButtonsHiddenStep2.find((el) => {
+			return el.checked;
+			// Index rereturn neto yung mismong element
+		});
+
 		let activeRadioIndexStep2 = radioButtonsHiddenStep2.findIndex((el) => {
 			return el.checked;
 		});
 
 		let selectedPlan = parseInt(prices[activeRadioIndexStep2].textContent);
 		finalBasePlanPriceStep4.textContent = selectedPlan;
+
+		// Updating plansObj
+		plansObj[0].plan = activeRadioStep2.labels[0].textContent;
+		plansObj[0].frequency = activeRadioStep2.labels[2].textContent;
+		plansObj[0].price = selectedPlan;
+
+		// Ito yung pag may laman na yung addons tapos na click ulit yung yearly switch
+		// Dahil naka false ang yearly, meaning dapat divide 10 ang addons
+		// Pero gagawin mo lang yun pag may laman na yung addons array,
+		// Mangyayari lang yun pag yung user ganito ginawa, step2 > step3> tapos bumalik ng step 2 ulit tapos pinalitan yung yearlyswitch
+		// didivide mo lang yung prices KUNG nag click na sya ng yearly atleast ONCE
+		// kasi pag hindi nya ginalaw yun, by default monthly lang ang prices
+
+		if (plansObj[0].addons.length !== 0) {
+			// May laman
+			let newPrices = plansObj[0].addons.map((el) => {
+				// Monthly ito
+				// Gawa ng bagong array na naka divide 10
+				// Kasi na multiply by 10 na natin to kung na click nya at least once ang yearly, pag hindi nya na click yun
+				// ng at least once, hindi na mangyayari to kasi monthly naman ang original na prices
+				return el.price / 10;
+			});
+
+			plansObj[0].addons.forEach((el, index) => {
+				// Dun sa addons array kunin mo ang each element at index nun
+				// set mo yung price sa newPrices pero yung index ng addons element ang gamitin mo para tugma
+				el.price = newPrices[index];
+			});
+		}
+
+		console.log(plansObj);
 	}
 });
 
@@ -166,14 +244,14 @@ planCardsContainerStep2.addEventListener('click', (e) => {
 	// Add ng event listener sa Div ng mga card plans, at pag na click mo yung
 	// may attribute na data-plan-card-input-step2 gawin mo yung nasa loob
 	if (e.target.matches('[data-plan-card-input-step2]')) {
-		let activeRadioIndexStep2 = radioButtonsHiddenStep2.findIndex((el) => {
-			return el.checked;
-			// I return mo yung index ng radiobutton na naka check
-		});
-
 		let activeRadioStep2 = radioButtonsHiddenStep2.find((el) => {
 			return el.checked;
 			// I return mo yung element mismo na radiobutton na naka check
+		});
+
+		let activeRadioIndexStep2 = radioButtonsHiddenStep2.findIndex((el) => {
+			return el.checked;
+			// I return mo yung index ng radiobutton na naka check
 		});
 
 		planCardDivsStep2.forEach((el, index) => {
@@ -185,6 +263,12 @@ planCardsContainerStep2.addEventListener('click', (e) => {
 		finalBasePlanPriceStep4.textContent = selectedPlan;
 		// Para to sa final step. yung final plan
 		finalBasePlanStep4.textContent = activeRadioStep2.labels[0].textContent;
+
+		// Updating the plansObj
+		plansObj[0].plan = activeRadioStep2.labels[0].textContent;
+		plansObj[0].frequency = activeRadioStep2.labels[2].textContent;
+		plansObj[0].price = selectedPlan;
+		console.log(plansObj);
 	}
 });
 
@@ -196,21 +280,22 @@ let listArray = [];
 const addToDOM = (arr) => {
 	finalAddonsDivStep4.innerHTML = '';
 
-	arr.forEach((item) => {
+	arr.forEach((item, index) => {
 		// Gawa ng bagong DIV
-		const priceHtml = `+$<span class="plan-price">${item.price}</span>/<span class="plan-frequency">mo</span>`;
+		// const priceHtml = `+$<span class="plan-price">${item.price}</span>/<span class="plan-frequency">mo</span>`;
+		const priceHtml = `+$<span class="plan-price">${plansObj[0].addons[index].price}</span>/<span class="plan-frequency">${plansObj[0].frequency}</span>`;
 		const newDiv = document.createElement('DIV');
 		newDiv.classList.add('form-group__summary--addons');
 
 		// Gawa ng bagong P para sa addon title
 		const newParagraphTitle = document.createElement('p');
 		newParagraphTitle.classList.add('form-group__summary--addons--title');
-		newParagraphTitle.innerText = item.plan;
+		newParagraphTitle.innerText = item.addon;
 
 		const newParagraphPrice = document.createElement('p');
 		newParagraphPrice.classList.add('form-group__summary--addons--price');
-		// newParagraphPrice.innerText = item.price;
-		newParagraphPrice.innerHTML = priceHtml;
+		newParagraphPrice.innerText = plansObj[0].addons[index].price;
+		// newParagraphPrice.innerHTML = priceHtml;
 
 		newDiv.append(newParagraphTitle);
 		newDiv.append(newParagraphPrice);
@@ -222,15 +307,27 @@ checkboxesStep3.forEach((el) => {
 	el.addEventListener('click', (e) => {
 		if (e.target.checked) {
 			listArray.push({
-				plan: e.target.labels[0].innerText,
+				addon: e.target.labels[0].innerText,
 				price: parseInt(e.target.labels[1].innerText),
 			});
+
+			plansObj[0].addons.push({
+				addon: e.target.labels[0].innerText,
+				price: parseInt(e.target.labels[1].innerText),
+			});
+
+			console.log(plansObj);
 
 			addToDOM(listArray);
 		} else {
 			listArray = listArray.filter((el) => {
-				return el.plan !== e.target.labels[0].innerText;
+				return el.addon !== e.target.labels[0].innerText;
 			});
+
+			plansObj[0].addons = plansObj[0].addons.filter((el) => {
+				return el.addon !== e.target.labels[0].innerText;
+			});
+			console.log(plansObj);
 			addToDOM(listArray);
 		}
 	});
