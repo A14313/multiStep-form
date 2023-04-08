@@ -25,6 +25,8 @@ const finalAddonsDivStep4 = document.querySelector('#finalAddonsDivStep4');
 let prices = [...document.querySelectorAll('.plan-price')];
 const checkboxesStep3 = [...document.querySelectorAll('[data-addon-card-input-step3]')];
 const addonsCardDivsStep3 = [...document.querySelectorAll('[data-individual-addon-card-div-step3]')];
+const finalTotalFrequencyStep4 = document.querySelector('#finalTotalFrequencyStep4');
+const finalTotalStep4 = document.querySelector('#finalTotalStep4');
 const submitButton = document.querySelector('#submitButton');
 
 // **********************************************************
@@ -41,10 +43,29 @@ let plansObj = [
 	{
 		plan: undefined,
 		frequency: undefined,
+		totalFrequencyStep4: undefined,
 		price: undefined,
 		addons: [],
 	},
 ];
+
+const totalFunc = () => {
+	let total = plansObj[0].price;
+
+	for (let i = 0; i < plansObj[0].addons.length; i++) {
+		total += plansObj[0].addons[i].price;
+	}
+
+	return total;
+};
+
+function multiplyByTen(num) {
+	return num * 10;
+}
+
+function divideByTen(num) {
+	return num / 10;
+}
 // **********************************************************
 // For switching the steps
 // Note 1
@@ -137,6 +158,7 @@ let monthlyPrices = prices.map((el) => {
 yearlySwitch.addEventListener('change', (e) => {
 	if (e.target.checked === true) {
 		finalBasePlanFrequencyTitleStep4.textContent = 'Yearly';
+		finalTotalFrequencyStep4.textContent = 'per year';
 		planFrequencies.forEach((el) => {
 			el.textContent = 'yr';
 		});
@@ -162,6 +184,7 @@ yearlySwitch.addEventListener('change', (e) => {
 		// Updating plansObj
 		plansObj[0].plan = activeRadioStep2.labels[0].textContent;
 		plansObj[0].frequency = activeRadioStep2.labels[2].textContent;
+		plansObj[0].totalFrequencyStep4 = finalTotalFrequencyStep4.textContent;
 		plansObj[0].price = selectedPlan;
 
 		// Ito yung pag may laman na yung addons tapos na click ulit yung yearly switch
@@ -173,7 +196,7 @@ yearlySwitch.addEventListener('change', (e) => {
 			let newPrices = plansObj[0].addons.map((el) => {
 				// Yearly ito
 				// Gawa ng bagong array na naka times 10
-				return el.price * 10;
+				return (el.price = multiplyByTen(el.price));
 			});
 
 			plansObj[0].addons.forEach((el, index) => {
@@ -181,11 +204,35 @@ yearlySwitch.addEventListener('change', (e) => {
 				// set mo yung price sa newPrices pero yung index ng addons element ang gamitin mo para tugma
 				el.price = newPrices[index];
 			});
+
+			// Itong nasa taas hindi ko ginagamit pero pinag aaupdate ko lang yun plansObj
+			// Keep ko lang to para next time na mag refactor ako pwede pa
+
+			// Ito yun ginagamit ko para maupdate talaga yung nasa step 4
+			// Kasi kaya ganito ang pag update ko kasi yung mga elemen na ito wala pa agad pag nag load ang page
+			// Kumabaga magkakaron lang kasi ng laman ang addons pag nag check ang user
+			// Ito yung para sa addonsPrices lang ng step 4, para ma update ko yung nasa step 4
+			let addonsPricesStep4 = [...document.querySelectorAll('#finalAddonsDivStep4 .plan-price')];
+			let addonsFrequenciesStep4 = [...document.querySelectorAll('#finalAddonsDivStep4 .plan-frequency')];
+			addonsFrequenciesStep4.forEach((el) => {
+				el.textContent = 'yr';
+			});
+
+			addonsPricesStep4.forEach((el) => {
+				let individualPrice = parseInt(el.textContent);
+				individualPrice = multiplyByTen(individualPrice);
+				el.textContent = individualPrice;
+				console.log(individualPrice);
+			});
 		}
+
+		console.log(totalFunc());
+		finalTotalStep4.textContent = totalFunc();
 
 		console.log(plansObj);
 	} else {
 		finalBasePlanFrequencyTitleStep4.textContent = 'Monthly';
+		finalTotalFrequencyStep4.textContent = 'per month';
 		planFrequencies.forEach((el) => {
 			el.textContent = 'mo';
 		});
@@ -208,6 +255,7 @@ yearlySwitch.addEventListener('change', (e) => {
 		// Updating plansObj
 		plansObj[0].plan = activeRadioStep2.labels[0].textContent;
 		plansObj[0].frequency = activeRadioStep2.labels[2].textContent;
+		plansObj[0].totalFrequencyStep4 = finalTotalFrequencyStep4.textContent;
 		plansObj[0].price = selectedPlan;
 
 		// Ito yung pag may laman na yung addons tapos na click ulit yung yearly switch
@@ -224,7 +272,7 @@ yearlySwitch.addEventListener('change', (e) => {
 				// Gawa ng bagong array na naka divide 10
 				// Kasi na multiply by 10 na natin to kung na click nya at least once ang yearly, pag hindi nya na click yun
 				// ng at least once, hindi na mangyayari to kasi monthly naman ang original na prices
-				return el.price / 10;
+				return (el.price = divideByTen(el.price));
 			});
 
 			plansObj[0].addons.forEach((el, index) => {
@@ -232,8 +280,30 @@ yearlySwitch.addEventListener('change', (e) => {
 				// set mo yung price sa newPrices pero yung index ng addons element ang gamitin mo para tugma
 				el.price = newPrices[index];
 			});
+
+			// Itong nasa taas hindi ko ginagamit pero pinag aaupdate ko lang yun plansObj
+			// Keep ko lang to para next time na mag refactor ako pwede pa
+
+			// Ito yun ginagamit ko para maupdate talaga yung nasa step 4
+			// Kasi kaya ganito ang pag update ko kasi yung mga elemen na ito wala pa agad pag nag load ang page
+			// Kumabaga magkakaron lang kasi ng laman ang addons pag nag check ang user
+			// Ito yung para sa addonsPrices lang ng step 4, para ma update ko yung nasa step 4
+			let addonsPricesStep4 = [...document.querySelectorAll('#finalAddonsDivStep4 .plan-price')];
+			let addonsFrequenciesStep4 = [...document.querySelectorAll('#finalAddonsDivStep4 .plan-frequency')];
+			addonsFrequenciesStep4.forEach((el) => {
+				el.textContent = 'mo';
+			});
+
+			addonsPricesStep4.forEach((el) => {
+				let individualPrice = parseInt(el.textContent);
+				individualPrice = divideByTen(individualPrice);
+				el.textContent = individualPrice;
+				console.log(individualPrice);
+			});
 		}
 
+		console.log(totalFunc());
+		finalTotalStep4.textContent = totalFunc();
 		console.log(plansObj);
 	}
 });
@@ -269,6 +339,8 @@ planCardsContainerStep2.addEventListener('click', (e) => {
 		plansObj[0].frequency = activeRadioStep2.labels[2].textContent;
 		plansObj[0].price = selectedPlan;
 		console.log(plansObj);
+		console.log(totalFunc());
+		finalTotalStep4.textContent = totalFunc();
 	}
 });
 
@@ -294,8 +366,8 @@ const addToDOM = (arr) => {
 
 		const newParagraphPrice = document.createElement('p');
 		newParagraphPrice.classList.add('form-group__summary--addons--price');
-		newParagraphPrice.innerText = plansObj[0].addons[index].price;
-		// newParagraphPrice.innerHTML = priceHtml;
+		// newParagraphPrice.innerText = plansObj[0].addons[index].price;
+		newParagraphPrice.innerHTML = priceHtml;
 
 		newDiv.append(newParagraphTitle);
 		newDiv.append(newParagraphPrice);
@@ -319,6 +391,9 @@ checkboxesStep3.forEach((el) => {
 			console.log(plansObj);
 
 			addToDOM(listArray);
+
+			console.log(totalFunc());
+			finalTotalStep4.textContent = totalFunc();
 		} else {
 			listArray = listArray.filter((el) => {
 				return el.addon !== e.target.labels[0].innerText;
@@ -329,6 +404,9 @@ checkboxesStep3.forEach((el) => {
 			});
 			console.log(plansObj);
 			addToDOM(listArray);
+
+			console.log(totalFunc());
+			finalTotalStep4.textContent = totalFunc();
 		}
 	});
 });
