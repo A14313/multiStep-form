@@ -178,58 +178,60 @@ yearlySwitch.addEventListener('change', (e) => {
 			// Index rereturn neto 0 - 2 or kung ilan man ang dulo
 		});
 
-		let selectedPlan = parseInt(prices[activeRadioIndexStep2].textContent);
-		finalBasePlanPriceStep4.textContent = selectedPlan;
+		if (activeRadioIndexStep2 >= 0) {
+			let selectedPlan = parseInt(prices[activeRadioIndexStep2].textContent);
+			finalBasePlanPriceStep4.textContent = selectedPlan;
 
-		// Updating plansObj
-		plansObj[0].plan = activeRadioStep2.labels[0].textContent;
-		plansObj[0].frequency = activeRadioStep2.labels[2].textContent;
-		plansObj[0].totalFrequencyStep4 = finalTotalFrequencyStep4.textContent;
-		plansObj[0].price = selectedPlan;
+			// Updating plansObj
+			plansObj[0].plan = activeRadioStep2.labels[0].textContent;
+			plansObj[0].frequency = activeRadioStep2.labels[2].textContent;
+			plansObj[0].totalFrequencyStep4 = finalTotalFrequencyStep4.textContent;
+			plansObj[0].price = selectedPlan;
 
-		// Ito yung pag may laman na yung addons tapos na click ulit yung yearly switch
-		// Dahil naka true ang yearly, meaning dapat times 10 ang addons
-		// Pero gagawin mo lang yun pag may laman na yung addons array,
-		// Mangyayari lang yun pag yung user ganito ginawa, step2 > step3> tapos bumalik ng step 2 ulit tapos pinalitan yung yearlyswitch
-		if (plansObj[0].addons.length !== 0) {
-			// May laman
-			let newPrices = plansObj[0].addons.map((el) => {
-				// Yearly ito
-				// Gawa ng bagong array na naka times 10
-				return (el.price = multiplyByTen(el.price));
-			});
+			// Ito yung pag may laman na yung addons tapos na click ulit yung yearly switch
+			// Dahil naka true ang yearly, meaning dapat times 10 ang addons
+			// Pero gagawin mo lang yun pag may laman na yung addons array,
+			// Mangyayari lang yun pag yung user ganito ginawa, step2 > step3> tapos bumalik ng step 2 ulit tapos pinalitan yung yearlyswitch
+			if (plansObj[0].addons.length !== 0) {
+				// May laman
+				let newPrices = plansObj[0].addons.map((el) => {
+					// Yearly ito
+					// Gawa ng bagong array na naka times 10
+					return (el.price = multiplyByTen(el.price));
+				});
 
-			plansObj[0].addons.forEach((el, index) => {
-				// Dun sa addons array kunin mo ang each element at index nun
-				// set mo yung price sa newPrices pero yung index ng addons element ang gamitin mo para tugma
-				el.price = newPrices[index];
-			});
+				plansObj[0].addons.forEach((el, index) => {
+					// Dun sa addons array kunin mo ang each element at index nun
+					// set mo yung price sa newPrices pero yung index ng addons element ang gamitin mo para tugma
+					el.price = newPrices[index];
+				});
 
-			// Itong nasa taas hindi ko ginagamit pero pinag aaupdate ko lang yun plansObj
-			// Keep ko lang to para next time na mag refactor ako pwede pa
+				// Itong nasa taas hindi ko ginagamit pero pinag aaupdate ko lang yun plansObj
+				// Keep ko lang to para next time na mag refactor ako pwede pa
 
-			// Ito yun ginagamit ko para maupdate talaga yung nasa step 4
-			// Kasi kaya ganito ang pag update ko kasi yung mga elemen na ito wala pa agad pag nag load ang page
-			// Kumabaga magkakaron lang kasi ng laman ang addons pag nag check ang user
-			// Ito yung para sa addonsPrices lang ng step 4, para ma update ko yung nasa step 4
-			let addonsPricesStep4 = [...document.querySelectorAll('#finalAddonsDivStep4 .plan-price')];
-			let addonsFrequenciesStep4 = [...document.querySelectorAll('#finalAddonsDivStep4 .plan-frequency')];
-			addonsFrequenciesStep4.forEach((el) => {
-				el.textContent = 'yr';
-			});
+				// Ito yun ginagamit ko para maupdate talaga yung nasa step 4
+				// Kasi kaya ganito ang pag update ko kasi yung mga elemen na ito wala pa agad pag nag load ang page
+				// Kumabaga magkakaron lang kasi ng laman ang addons pag nag check ang user
+				// Ito yung para sa addonsPrices lang ng step 4, para ma update ko yung nasa step 4
+				let addonsPricesStep4 = [...document.querySelectorAll('#finalAddonsDivStep4 .plan-price')];
+				let addonsFrequenciesStep4 = [...document.querySelectorAll('#finalAddonsDivStep4 .plan-frequency')];
+				addonsFrequenciesStep4.forEach((el) => {
+					el.textContent = 'yr';
+				});
 
-			addonsPricesStep4.forEach((el) => {
-				let individualPrice = parseInt(el.textContent);
-				individualPrice = multiplyByTen(individualPrice);
-				el.textContent = individualPrice;
-				console.log(individualPrice);
-			});
+				addonsPricesStep4.forEach((el) => {
+					let individualPrice = parseInt(el.textContent);
+					individualPrice = multiplyByTen(individualPrice);
+					el.textContent = individualPrice;
+					console.log(individualPrice);
+				});
+			}
+
+			console.log(totalFunc());
+			finalTotalStep4.textContent = totalFunc();
+
+			console.log(plansObj);
 		}
-
-		console.log(totalFunc());
-		finalTotalStep4.textContent = totalFunc();
-
-		console.log(plansObj);
 	} else {
 		finalBasePlanFrequencyTitleStep4.textContent = 'Monthly';
 		finalTotalFrequencyStep4.textContent = 'per month';
@@ -249,71 +251,75 @@ yearlySwitch.addEventListener('change', (e) => {
 			return el.checked;
 		});
 
-		let selectedPlan = parseInt(prices[activeRadioIndexStep2].textContent);
-		finalBasePlanPriceStep4.textContent = selectedPlan;
+		if (activeRadioIndexStep2 >= 0) {
+			let selectedPlan = parseInt(prices[activeRadioIndexStep2].textContent);
+			finalBasePlanPriceStep4.textContent = selectedPlan;
 
-		// Updating plansObj
-		plansObj[0].plan = activeRadioStep2.labels[0].textContent;
-		plansObj[0].frequency = activeRadioStep2.labels[2].textContent;
-		plansObj[0].totalFrequencyStep4 = finalTotalFrequencyStep4.textContent;
-		plansObj[0].price = selectedPlan;
+			// Updating plansObj
+			plansObj[0].plan = activeRadioStep2.labels[0].textContent;
+			plansObj[0].frequency = activeRadioStep2.labels[2].textContent;
+			plansObj[0].totalFrequencyStep4 = finalTotalFrequencyStep4.textContent;
+			plansObj[0].price = selectedPlan;
 
-		// Ito yung pag may laman na yung addons tapos na click ulit yung yearly switch
-		// Dahil naka false ang yearly, meaning dapat divide 10 ang addons
-		// Pero gagawin mo lang yun pag may laman na yung addons array,
-		// Mangyayari lang yun pag yung user ganito ginawa, step2 > step3> tapos bumalik ng step 2 ulit tapos pinalitan yung yearlyswitch
-		// didivide mo lang yung prices KUNG nag click na sya ng yearly atleast ONCE
-		// kasi pag hindi nya ginalaw yun, by default monthly lang ang prices
+			// Ito yung pag may laman na yung addons tapos na click ulit yung yearly switch
+			// Dahil naka false ang yearly, meaning dapat divide 10 ang addons
+			// Pero gagawin mo lang yun pag may laman na yung addons array,
+			// Mangyayari lang yun pag yung user ganito ginawa, step2 > step3> tapos bumalik ng step 2 ulit tapos pinalitan yung yearlyswitch
+			// didivide mo lang yung prices KUNG nag click na sya ng yearly atleast ONCE
+			// kasi pag hindi nya ginalaw yun, by default monthly lang ang prices
 
-		if (plansObj[0].addons.length !== 0) {
-			// May laman
-			let newPrices = plansObj[0].addons.map((el) => {
-				// Monthly ito
-				// Gawa ng bagong array na naka divide 10
-				// Kasi na multiply by 10 na natin to kung na click nya at least once ang yearly, pag hindi nya na click yun
-				// ng at least once, hindi na mangyayari to kasi monthly naman ang original na prices
-				return (el.price = divideByTen(el.price));
-			});
+			if (plansObj[0].addons.length !== 0) {
+				// May laman
+				let newPrices = plansObj[0].addons.map((el) => {
+					// Monthly ito
+					// Gawa ng bagong array na naka divide 10
+					// Kasi na multiply by 10 na natin to kung na click nya at least once ang yearly, pag hindi nya na click yun
+					// ng at least once, hindi na mangyayari to kasi monthly naman ang original na prices
+					return (el.price = divideByTen(el.price));
+				});
 
-			plansObj[0].addons.forEach((el, index) => {
-				// Dun sa addons array kunin mo ang each element at index nun
-				// set mo yung price sa newPrices pero yung index ng addons element ang gamitin mo para tugma
-				el.price = newPrices[index];
-			});
+				plansObj[0].addons.forEach((el, index) => {
+					// Dun sa addons array kunin mo ang each element at index nun
+					// set mo yung price sa newPrices pero yung index ng addons element ang gamitin mo para tugma
+					el.price = newPrices[index];
+				});
 
-			// Itong nasa taas hindi ko ginagamit pero pinag aaupdate ko lang yun plansObj
-			// Keep ko lang to para next time na mag refactor ako pwede pa
+				// Itong nasa taas hindi ko ginagamit pero pinag aaupdate ko lang yun plansObj
+				// Keep ko lang to para next time na mag refactor ako pwede pa
 
-			// Ito yun ginagamit ko para maupdate talaga yung nasa step 4
-			// Kasi kaya ganito ang pag update ko kasi yung mga elemen na ito wala pa agad pag nag load ang page
-			// Kumabaga magkakaron lang kasi ng laman ang addons pag nag check ang user
-			// Ito yung para sa addonsPrices lang ng step 4, para ma update ko yung nasa step 4
-			let addonsPricesStep4 = [...document.querySelectorAll('#finalAddonsDivStep4 .plan-price')];
-			let addonsFrequenciesStep4 = [...document.querySelectorAll('#finalAddonsDivStep4 .plan-frequency')];
-			addonsFrequenciesStep4.forEach((el) => {
-				el.textContent = 'mo';
-			});
+				// Ito yun ginagamit ko para maupdate talaga yung nasa step 4
+				// Kasi kaya ganito ang pag update ko kasi yung mga elemen na ito wala pa agad pag nag load ang page
+				// Kumabaga magkakaron lang kasi ng laman ang addons pag nag check ang user
+				// Ito yung para sa addonsPrices lang ng step 4, para ma update ko yung nasa step 4
+				let addonsPricesStep4 = [...document.querySelectorAll('#finalAddonsDivStep4 .plan-price')];
+				let addonsFrequenciesStep4 = [...document.querySelectorAll('#finalAddonsDivStep4 .plan-frequency')];
+				addonsFrequenciesStep4.forEach((el) => {
+					el.textContent = 'mo';
+				});
 
-			addonsPricesStep4.forEach((el) => {
-				let individualPrice = parseInt(el.textContent);
-				individualPrice = divideByTen(individualPrice);
-				el.textContent = individualPrice;
-				console.log(individualPrice);
-			});
+				addonsPricesStep4.forEach((el) => {
+					let individualPrice = parseInt(el.textContent);
+					individualPrice = divideByTen(individualPrice);
+					el.textContent = individualPrice;
+					console.log(individualPrice);
+				});
+			}
+
+			console.log(totalFunc());
+			finalTotalStep4.textContent = totalFunc();
+			console.log(plansObj);
 		}
-
-		console.log(totalFunc());
-		finalTotalStep4.textContent = totalFunc();
-		console.log(plansObj);
 	}
 });
 
 // **********************************************************
 // Ito yung sa step 2 para kada click or tap ng user sa plan nag a update ang frequency at plans
+
 planCardsContainerStep2.addEventListener('click', (e) => {
 	// Add ng event listener sa Div ng mga card plans, at pag na click mo yung
 	// may attribute na data-plan-card-input-step2 gawin mo yung nasa loob
 	if (e.target.matches('[data-plan-card-input-step2]')) {
+		yearlySwitch.disabled = false;
 		let activeRadioStep2 = radioButtonsHiddenStep2.find((el) => {
 			return el.checked;
 			// I return mo yung element mismo na radiobutton na naka check
@@ -338,9 +344,11 @@ planCardsContainerStep2.addEventListener('click', (e) => {
 		plansObj[0].plan = activeRadioStep2.labels[0].textContent;
 		plansObj[0].frequency = activeRadioStep2.labels[2].textContent;
 		plansObj[0].price = selectedPlan;
+		plansObj[0].totalFrequencyStep4 = finalTotalFrequencyStep4.textContent;
+		finalTotalStep4.textContent = totalFunc();
 		console.log(plansObj);
 		console.log(totalFunc());
-		finalTotalStep4.textContent = totalFunc();
+		console.log(activeRadioIndexStep2);
 	}
 });
 
