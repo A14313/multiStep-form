@@ -15,6 +15,7 @@
 	--clr-gray-light-600: hsl(231, 100%, 99%); //Alabaster (even much lighter gray)
 
 	--clr-input-border-focused: hsl(243, 100%, 62%);
+	--clr-error: hsl(354, 84%, 57%);
 }
 
 body {
@@ -43,7 +44,7 @@ body {
 .form-group-label__desc,
 .form-group input::placeholder,
 .btn--previous,
-.form-group__summary--plan a,
+#goBackToStepTwoLink,
 .form-group__summary--addons--title,
 .form-group__total--title,
 .page-indicator__title {

@@ -82,16 +82,25 @@
 							<h2 class="card__title">Personal info</h2>
 							<p class="card__desc">Please provide your name, email address, and phone number</p>
 							<div class="form-group">
-								<label class="primary-title" for="name">Name</label>
-								<input type="text" name="name" id="name" placeholder="e.g. Stephen King" required />
+								<div class="form-group__label-container">
+									<label class="primary-title" for="name">Name</label>
+									<p class="error" data-name-error></p>
+								</div>
+								<input type="text" name="name" id="name" placeholder="e.g. Stephen King" required data-name-input />
 							</div>
 							<div class="form-group">
-								<label class="primary-title" for="email">Email Address</label>
-								<input type="email" name="email" id="email" placeholder="e.g. stephenking@lorem.com" required />
+								<div class="form-group__label-container">
+									<label class="primary-title" for="email">Email Address</label>
+									<p class="error" data-email-error></p>
+								</div>
+								<input type="email" name="email" id="email" placeholder="e.g. stephenking@lorem.com" required data-email-input />
 							</div>
 							<div class="form-group">
-								<label class="primary-title" for="number">Phone Number</label>
-								<input type="number" name="number" id="number" placeholder="e.g. +1 234 567 890" required />
+								<div class="form-group__label-container">
+									<label class="primary-title" for="number">Phone Number</label>
+									<p class="error" data-number-error></p>
+								</div>
+								<input type="number" name="number" id="number" placeholder="e.g. +1 234 567 890" required data-number-input />
 							</div>
 						</div>
 						<div class="lower-action">
@@ -104,6 +113,7 @@
 						<div class="card">
 							<h2 class="card__title">Select your plan</h2>
 							<p class="card__desc">You have the option of monthly or yearly billing</p>
+							<p class="card__hint-step2" data-radio-hint>Please select one of these options</p>
 							<div class="card__plans-radio" data-plan-cards-container-step2>
 								<!-- Option 1 -->
 								<div class="card__plans-radio-group">
@@ -281,7 +291,7 @@
 											<span id="finalBasePlanStep4">Arcade</span>
 											(<span id="finalBasePlanFrequencyTitleStep4">Monthly</span>)
 										</p>
-										<a href="#">Change</a>
+										<p id="goBackToStepTwoLink">Change</p>
 									</div>
 									<div>
 										<p class="primary-title">$<span id="finalBasePlanPriceStep4">9</span>/<span class="plan-frequency">mo</span></p>

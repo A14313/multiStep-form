@@ -2,6 +2,7 @@
 //Variables
 const form = document.querySelector('[multiStepForm]');
 const formSteps = [...form.querySelectorAll('[data-step]')];
+const allInputs = [...document.querySelectorAll('.form-group input')];
 const pageIndicatorItems = [...document.querySelectorAll('.page-indicator .page-indicator__item')]; //<<-- <li> to ng Page indicator
 const yearlySwitch = document.querySelector('#yearly');
 const yearlyLabels = document.querySelectorAll('.form-group-label__yearly');
@@ -27,6 +28,7 @@ const checkboxesStep3 = [...document.querySelectorAll('[data-addon-card-input-st
 const addonsCardDivsStep3 = [...document.querySelectorAll('[data-individual-addon-card-div-step3]')];
 const finalTotalFrequencyStep4 = document.querySelector('#finalTotalFrequencyStep4');
 const finalTotalStep4 = document.querySelector('#finalTotalStep4');
+const goBackToStepTwoLink = document.querySelector('#goBackToStepTwoLink');
 const submitButton = document.querySelector('#submitButton');
 
 // **********************************************************
@@ -36,8 +38,14 @@ form.addEventListener('keydown', (e) => {
 	if (e.code === 'Enter' || e.code === 'NumpadEnter') {
 		e.preventDefault();
 		console.log('Enter is prevented');
+		nextFunc(e);
 	}
 });
+
+// window.addEventListener('keydown', (e) => {
+// 	nextFunc(e);
+// 	console.log(e.code);
+// });
 
 let plansObj = [
 	{
@@ -66,6 +74,42 @@ function multiplyByTen(num) {
 function divideByTen(num) {
 	return num / 10;
 }
+
+const validateEmail = (emailToValidate) => {
+	// Regular expression https://zparacha.com/validate-email-address-using-javascript-regular-expression
+	const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+	if (!emailPattern.test(emailToValidate)) {
+		showError('data-email-error', 'data-email-input', 'Valid email address is required');
+	}
+};
+
+const showError = (errorParagraphElement, errorElementInput, errorMessage) => {
+	// Get the paragraph element that has passed in line 167 then add mo ng class error-active
+	document.querySelector(`[${errorParagraphElement}]`).classList.add('error-active');
+	// Get the paragraph element that has passed in line 167 set the textContent to errorMessage Parameter
+	document.querySelector(`[${errorParagraphElement}]`).textContent = errorMessage;
+	// Get the input element that has passed in line 167 then add, input-has-error
+	if (errorElementInput) {
+		document.querySelector(`[${errorElementInput}]`).classList.add('input-has-error');
+	}
+};
+
+const clearError = () => {
+	const errors = document.querySelectorAll('.error');
+	let inputHasErrors = allInputs.filter((el) => {
+		return el.classList.contains('input-has-error');
+	});
+
+	for (let error of errors) {
+		error.classList.remove('error-active');
+	}
+
+	for (let input of inputHasErrors) {
+		input.classList.remove('input-has-error');
+	}
+};
+
 // **********************************************************
 // For switching the steps
 // Note 1
@@ -88,10 +132,10 @@ if (currentStep < 0 && currentIndicator < 0) {
 	formSteps[currentStep].classList.add('active');
 }
 
-const nextFn = (e) => {
+const nextFunc = (e) => {
 	// Note 3
 	let incrementor;
-	if (e.target.matches('[data-next]')) {
+	if (e.target.matches('[data-next]') || e.target.matches('#submitButton')) {
 		incrementor = 1;
 	} else if (e.target.matches('[data-previous]')) {
 		incrementor = -1;
@@ -109,12 +153,16 @@ const nextFn = (e) => {
 		// input check mo kung valid na ba, if hindi, report ang error
 		// ang report validity nagrereturn ng true or false, dahil naka 'every' tayo
 		// meaning dapat lahat ng input ay valid, else false ang irereturn nya
-		return input.reportValidity();
+		// return input.reportValidity(); //<-- Pag eto mag lalabas sya ng default tooltip na nag papakita ng errors
+		return input.checkValidity(); // <-- ito nalang ginamit ko kasi gumawa na ako sarili kong error messages, need ko lang yung true or false kung valid sila
 	});
 
 	if (isAllValid) {
 		currentStep += incrementor;
 		currentIndicator += incrementor;
+
+		console.log(currentStep);
+		console.log(currentIndicator);
 
 		formSteps.forEach((el, index) => {
 			el.classList.toggle('active', index === currentStep);
@@ -126,10 +174,25 @@ const nextFn = (e) => {
 
 		//Note 4
 	}
+
+	// Kada click mo ng button na next irurun nya kasi itong clearError()
+	clearError();
+
+	if (form.name.value === '') {
+		showError('data-name-error', 'data-name-input', 'Name required');
+	}
+	if (form.email.value === '') {
+		showError('data-email-error', 'data-email-input', 'Valid email address is required');
+	}
+
+	validateEmail(form.email.value);
+
+	if (form.number.value === '') {
+		showError('data-number-error', 'data-number-input', 'Number is required');
+	}
 };
 
-form.addEventListener('click', nextFn);
-
+form.addEventListener('click', nextFunc);
 // **********************************************************
 
 // For adding yearly or monthly labels in step 2
@@ -314,7 +377,7 @@ yearlySwitch.addEventListener('change', (e) => {
 
 // **********************************************************
 // Ito yung sa step 2 para kada click or tap ng user sa plan nag a update ang frequency at plans
-
+const radioErrorParagpraph = document.querySelector('[data-radio-hint]');
 planCardsContainerStep2.addEventListener('click', (e) => {
 	// Add ng event listener sa Div ng mga card plans, at pag na click mo yung
 	// may attribute na data-plan-card-input-step2 gawin mo yung nasa loob
@@ -335,6 +398,7 @@ planCardsContainerStep2.addEventListener('click', (e) => {
 		});
 
 		let selectedPlan = parseInt(prices[activeRadioIndexStep2].textContent);
+		radioErrorParagpraph.classList.remove('active');
 
 		finalBasePlanPriceStep4.textContent = selectedPlan;
 		// Para to sa final step. yung final plan
@@ -349,6 +413,23 @@ planCardsContainerStep2.addEventListener('click', (e) => {
 		console.log(plansObj);
 		console.log(totalFunc());
 		console.log(activeRadioIndexStep2);
+	}
+});
+
+formSteps[1].addEventListener('click', (e) => {
+	if (e.target.matches('[data-next]') || e.target.matches('[data-previous]')) {
+		let activeRadioIndex = radioButtonsHiddenStep2.findIndex((el) => {
+			return el.checked;
+			// I return mo yung index ng radiobutton na naka check
+		});
+
+		if (activeRadioIndex < 0) {
+			radioErrorParagpraph.classList.add('active');
+		}
+
+		if (activeRadioIndex >= 0) {
+			radioErrorParagpraph.classList.remove('active');
+		}
 	}
 });
 
@@ -417,6 +498,51 @@ checkboxesStep3.forEach((el) => {
 			finalTotalStep4.textContent = totalFunc();
 		}
 	});
+});
+
+// Step 4
+goBackToStepTwoLink.addEventListener('click', () => {
+	currentStep = 1;
+	currentIndicator = 1;
+	console.log(`current step ${currentStep}\ncurrent Indicator ${currentIndicator}`);
+	formSteps.forEach((el, index) => {
+		el.classList.toggle('active', index === currentStep);
+	});
+
+	pageIndicatorItems.forEach((el, index) => {
+		el.classList.toggle('active', index === currentIndicator);
+	});
+});
+
+// console.log(pageIndicatorItems);
+
+// form.addEventListener('submit', (e) => {
+// 	e.preventDefault();
+// 	setTimeout(() => {
+// 		console.log(e);
+// 		resolve();
+// 		e.preventDefault = false;
+// 	}, 3000);
+// });
+
+let obj = {
+	key: 'value',
+};
+
+form.addEventListener('submit', async (e) => {
+	// Tutorials
+	// https://javascript.info/formdata
+	// https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#uploading_json_data
+	e.preventDefault();
+
+	let response = await fetch('/', {
+		method: 'POST',
+		body: new FormData(form),
+	});
+
+	let result = await response.json();
+
+	console.log(result);
 });
 
 // **********************************************************
