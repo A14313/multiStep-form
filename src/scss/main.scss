@@ -20,6 +20,7 @@ body {
 	// width: 90%;
 	// max-width: 1200px;
 	// margin-inline: auto;
+
 	@include mediaQuery(med) {
 		min-height: 100vh;
 		display: grid;
@@ -98,6 +99,7 @@ body {
 
 .multi-step-form {
 	margin-block-start: 0em;
+	position: relative;
 
 	@include mediaQuery(med) {
 		grid-column: 2 / -1;
@@ -153,11 +155,11 @@ body {
 
 		// For those devices with mouse
 		// Pag hinover mo tapos may mouse ka, gagana yung border
-		@media (hover: hover) {
-			&:hover {
-				border: 1px solid var(--clr-input-border-focused);
-			}
-		}
+		// @media (hover: hover) {
+		// 	&:hover {
+		// 		border: 1px solid var(--clr-input-border-focused);
+		// 	}
+		// }
 
 		@include mediaQuery(med) {
 			flex-direction: column;
@@ -179,8 +181,6 @@ body {
 	}
 
 	&__radio__img {
-		// width: 100%;
-
 		& img {
 			width: 50px;
 		}
@@ -483,6 +483,13 @@ body {
 			height: 100%;
 			cursor: pointer;
 			opacity: 0;
+
+			@media (hover: hover) {
+				// Pag na hover ang optionInput, kasi 100% ang height and width, select mo agad yung direct sibling na may attribute na data-individual-plan-card-div-step2
+				&:hover + [data-individual-plan-card-div-step2] {
+					border: 1px solid var(--clr-input-border-focused);
+				}
+			}
 		}
 	}
 }
@@ -540,10 +547,6 @@ body {
 			transform: translateX(0);
 			transition: transform var(--transition-speed-normal) ease;
 		}
-	}
-
-	input:checked + .slider {
-		// background-color: #ff278c;
 	}
 
 	input:checked + .slider:before {

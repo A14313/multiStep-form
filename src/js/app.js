@@ -514,17 +514,6 @@ goBackToStepTwoLink.addEventListener('click', () => {
 	});
 });
 
-// console.log(pageIndicatorItems);
-
-// form.addEventListener('submit', (e) => {
-// 	e.preventDefault();
-// 	setTimeout(() => {
-// 		console.log(e);
-// 		resolve();
-// 		e.preventDefault = false;
-// 	}, 3000);
-// });
-
 let obj = {
 	key: 'value',
 };
@@ -534,15 +523,12 @@ form.addEventListener('submit', async (e) => {
 	// https://javascript.info/formdata
 	// https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#uploading_json_data
 	e.preventDefault();
+	let response = new FormData(form);
+	console.log(response);
 
-	let response = await fetch('/', {
-		method: 'POST',
-		body: new FormData(form),
-	});
-
-	let result = await response.json();
-
-	console.log(result);
+	setTimeout(() => {
+		location.reload(true);
+	}, 6000);
 });
 
 // **********************************************************
