@@ -8,20 +8,19 @@ This is my solution to the Challenge.
 
 ### Built with
 
--   Semantic HTML5 markup
--   CSS custom properties
--   Flexbox
--   CSS Grid
--   SCSS
--   Mobile-first workflow
+-Semantic HTML5 markup
+-CSS custom properties
+-Flexbox
+-CSS Grid
+-SCSS
+-Mobile-first workflow
 
 ### Links
 
--   [Solution URL](#)
+-[Solution URL](https://www.frontendmentor.io/solutions/responsive-multistep-form-EIUtdjoZQu)
 
--   [Live Site URL](https://a14313.github.io/multiStep-form/dist/)
+-[Live Site URL](https://a14313.github.io/multiStep-form/dist/)
 
 ## Author
 
--   [Carlo Autor - Github](https://github.com/A14313)
--   [Frontend Mentor](https://www.frontendmentor.io/profile/A14313)
+-[Carlo Autor - Github](https://github.com/A14313) -[Frontend Mentor](https://www.frontendmentor.io/profile/A14313)
