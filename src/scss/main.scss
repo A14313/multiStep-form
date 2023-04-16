@@ -17,14 +17,44 @@ body {
 }
 
 .container {
-	// width: 90%;
-	// max-width: 1200px;
-	// margin-inline: auto;
+	display: none;
+
+	@include mediaQuery(xsm) {
+		display: block;
+	}
 
 	@include mediaQuery(med) {
 		min-height: 100vh;
 		display: grid;
 		place-items: center;
+	}
+}
+
+.viewport-checker {
+	display: grid;
+	place-content: center;
+	min-height: 100dvh;
+	min-height: 100vh;
+	position: relative;
+	z-index: 9999;
+
+	&__container {
+		width: 90%;
+		max-width: 500px;
+		margin-inline: auto;
+	}
+
+	& h1 {
+		line-height: 1.2;
+	}
+
+	& p {
+		margin-block: 1.3em;
+		line-height: 1.7;
+	}
+
+	@include mediaQuery(xsm) {
+		display: none;
 	}
 }
 
