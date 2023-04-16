@@ -77,7 +77,9 @@ function divideByTen(num) {
 
 const validateEmail = (emailToValidate) => {
 	// Regular expression https://zparacha.com/validate-email-address-using-javascript-regular-expression
-	const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+	// const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+	// Nag coconflict yung unang reg ex, kasi sa regex ko , alphanumeric+@alphanumeric+.2-4 letters pero sa default validation checker ng js, hanggang '@' lang hindi na chinecheck yung '.dot'
+	const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]/;
 
 	if (!emailPattern.test(emailToValidate)) {
 		showError('data-email-error', 'data-email-input', 'Valid email address is required');
