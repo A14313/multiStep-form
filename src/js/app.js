@@ -37,7 +37,7 @@ const submitButton = document.querySelector('#submitButton');
 form.addEventListener('keydown', (e) => {
 	if (e.code === 'Enter' || e.code === 'NumpadEnter') {
 		e.preventDefault();
-		console.log('Enter is prevented');
+		console.log('Enter is prevented for form submission');
 		nextFunc(e);
 	}
 });

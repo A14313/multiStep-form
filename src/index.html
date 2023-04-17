@@ -26,17 +26,17 @@
 		</div>
 		<div class="container">
 			<div class="main-grid">
-				<div class="banner__container">
-					<img src="assets/images/bg-sidebar-mobile.svg" mobile alt="" />
-					<img src="assets/images/bg-sidebar-desktop.svg" desktop alt="" />
+				<div class="banner__container" role="banner">
+					<img src="assets/images/bg-sidebar-mobile.svg" data-mobile alt="Banner Image" role="banner" />
+					<img src="assets/images/bg-sidebar-desktop.svg" data-desktop alt="Banner Image" role="banner" />
 				</div>
-				<div class="page-indicator">
-					<ul class="page-indicator__list">
+				<div class="page-indicator" role="page-indicators">
+					<div class="page-indicator__list" role="page-indicators-list">
 						<!-- 1 -->
 						<div class="page-indicator__group">
-							<li class="page-indicator__item">
+							<div class="page-indicator__item" role="page-indicators-item">
 								<p>1</p>
-							</li>
+							</div>
 							<div class="page-indicator__text">
 								<p class="page-indicator__title">Step 1</p>
 								<p class="page-indicator__desc">Your info</p>
@@ -45,9 +45,9 @@
 
 						<!-- 2 -->
 						<div class="page-indicator__group">
-							<li class="page-indicator__item">
+							<div class="page-indicator__item" role="page-indicators-item">
 								<p>2</p>
-							</li>
+							</div>
 							<div class="page-indicator__text">
 								<p class="page-indicator__title">Step 2</p>
 								<p class="page-indicator__desc">Select plan</p>
@@ -56,9 +56,9 @@
 
 						<!-- 3 -->
 						<div class="page-indicator__group">
-							<li class="page-indicator__item">
+							<div class="page-indicator__item" role="page-indicators-item">
 								<p>3</p>
-							</li>
+							</div>
 							<div class="page-indicator__text">
 								<p class="page-indicator__title">Step 3</p>
 								<p class="page-indicator__desc">Add-ons</p>
@@ -67,20 +67,20 @@
 
 						<!-- 4 -->
 						<div class="page-indicator__group">
-							<li class="page-indicator__item">
+							<div class="page-indicator__item" role="page-indicators-item">
 								<p>4</p>
-							</li>
+							</div>
 							<div class="page-indicator__text">
 								<p class="page-indicator__title">Step 4</p>
 								<p class="page-indicator__desc">Summary</p>
 							</div>
 						</div>
-					</ul>
+					</div>
 				</div>
 				<form class="multi-step-form" action="#" multiStepForm>
 					<!-- Step 1 -->
 					<div class="card-container" data-step>
-						<div class="card">
+						<div class="card" role="main-form">
 							<h2 class="card__title">Personal info</h2>
 							<p class="card__desc">Please provide your name, email address, and phone number</p>
 							<div class="form-group">
@@ -112,7 +112,7 @@
 
 					<!-- Step 2 -->
 					<div class="card-container" data-step>
-						<div class="card">
+						<div class="card" role="main-form">
 							<h2 class="card__title">Select your plan</h2>
 							<p class="card__desc">You have the option of monthly or yearly billing</p>
 							<p class="card__hint-step2" data-radio-hint>Please select one of these options</p>
@@ -120,7 +120,7 @@
 								<!-- Option 1 -->
 								<div class="card__plans-radio-group">
 									<input class="optionInput" type="radio" name="plan" id="arcade" value="arcade" required data-plan-card-input-step2 />
-									<div class="form-group flex" data-individual-plan-card-div-step2>
+									<div class="form-group form-group-card" data-individual-plan-card-div-step2>
 										<div class="form-group__radio__img">
 											<img src="assets/images/icon-arcade.svg" alt="" />
 										</div>
@@ -140,7 +140,7 @@
 								<!-- Option 2 -->
 								<div class="card__plans-radio-group">
 									<input class="optionInput" type="radio" name="plan" id="advanced" value="advanced" data-plan-card-input-step2 />
-									<div class="form-group flex" data-individual-plan-card-div-step2>
+									<div class="form-group form-group-card" data-individual-plan-card-div-step2>
 										<div class="form-group__radio__img">
 											<img src="assets/images/icon-advanced.svg" alt="" />
 										</div>
@@ -160,7 +160,7 @@
 								<!-- Option 3 -->
 								<div class="card__plans-radio-group">
 									<input class="optionInput" type="radio" name="plan" id="pro" value="pro" data-plan-card-input-step2 />
-									<div class="form-group flex" data-individual-plan-card-div-step2>
+									<div class="form-group form-group-card" data-individual-plan-card-div-step2>
 										<div class="form-group__radio__img">
 											<img src="assets/images/icon-pro.svg" alt="" />
 										</div>
@@ -198,11 +198,11 @@
 
 					<!-- Step 3 -->
 					<div class="card-container" data-step>
-						<div class="card">
+						<div class="card" role="main-form">
 							<h2 class="card__title">Pick add-ons</h2>
 							<p class="card__desc">Add-ons help enhance your gaming experience.</p>
 							<!-- 1st option -->
-							<div class="form-group flex" data-individual-addon-card-div-step3>
+							<div class="form-group form-group-card" data-individual-addon-card-div-step3>
 								<div class="checkbox-container">
 									<div class="custom-checkbox-container">
 										<input type="checkbox" name="addons" id="onlineService" value="onlineService" data-addon-card-input-step3 />
@@ -226,7 +226,7 @@
 							</div>
 
 							<!-- 2nd option -->
-							<div class="form-group flex" data-individual-addon-card-div-step3>
+							<div class="form-group form-group-card" data-individual-addon-card-div-step3>
 								<div class="checkbox-container">
 									<div class="custom-checkbox-container">
 										<input type="checkbox" name="addons" id="largerStorage" value="largerStorage" data-addon-card-input-step3 />
@@ -250,7 +250,7 @@
 							</div>
 
 							<!-- 3rd option -->
-							<div class="form-group flex" data-individual-addon-card-div-step3>
+							<div class="form-group form-group-card" data-individual-addon-card-div-step3>
 								<div class="checkbox-container">
 									<div class="custom-checkbox-container">
 										<input type="checkbox" name="addons" id="customizableProfile" value="customizableProfile" data-addon-card-input-step3 />
@@ -283,7 +283,7 @@
 
 					<!-- Step 4 -->
 					<div class="card-container" data-step>
-						<div class="card">
+						<div class="card" role="main-form">
 							<h2 class="card__title">Finishing up</h2>
 							<p class="card__desc">Double-check everything looks OK before confirming</p>
 							<div class="form-group form-group__summary">
@@ -320,7 +320,7 @@
 
 					<!-- Step 4 Thank you-->
 					<div class="card-container" data-step>
-						<div class="card">
+						<div class="card" role="main-form">
 							<div class="card--thankyou">
 								<img src="assets/images/icon-thank-you.svg" alt="" />
 								<h2 class="card__title">Thank you!</h2>
